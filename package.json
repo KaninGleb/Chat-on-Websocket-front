@@ -1,0 +1,35 @@
+{
+  "name": "websocket-front",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "clsx": "2.1.1",
+    "express": "5.1.0",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "react-redux": "9.2.0",
+    "redux": "5.0.1",
+    "redux-thunk": "3.1.0",
+    "socket.io-client": "4.8.1",
+    "styled": "1.0.0",
+    "styled-components": "6.1.19",
+    "uuid": "11.1.0"
+  },
+  "devDependencies": {
+    "@types/react": "19.1.8",
+    "@types/react-dom": "19.1.6",
+    "@vitejs/plugin-react-swc": "3.10.2",
+    "globals": "16.3.0",
+    "prettier": "^3.6.2",
+    "typescript": "5.8.3",
+    "vite": "7.0.3",
+    "vitest": "3.2.4"
+  }
+}
