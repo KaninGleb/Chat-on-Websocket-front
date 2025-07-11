@@ -1,11 +1,20 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import io from 'socket.io-client'
 import './App.css'
 
+const socket = io('https://chat-on-websocket-back.onrender.com')
+
 function App() {
-  const [messages, setMessages] = useState([
-    { message: 'Hello, Viktor', id: 'hsdafgds', user: { id: 'sdfdsf', name: 'Dimych' } },
-    { message: 'Hello, Dimych', id: 'asdfsdfs', user: { id: 'asdfdg', name: 'Viktor' } },
-  ])
+  useEffect(() => {
+    socket.on('init-messages-published', (messages: any) => {
+      console.log(messages)
+      setMessages(messages)
+    })
+  }, [])
+
+  const [messages, setMessages] = useState<Array<any>>([])
+
+  const [message, setMessage] = useState('')
 
   return (
     <>
@@ -18,8 +27,8 @@ function App() {
           overflowY: 'scroll',
         }}
       >
-        {messages.map((m, i) => (
-          <div key={i}>
+        {messages.map((m) => (
+          <div key={m.id}>
             <b>{m.user.name}:</b> {m.message}
             <hr />
           </div>
