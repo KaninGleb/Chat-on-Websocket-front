@@ -40,26 +40,30 @@ function App() {
         ))}
       </div>
 
-      <input value={name} onChange={(e) => setName(e.currentTarget.value)} />
-      <button
-        onClick={() => {
-          socket.emit('client-name-sent', name)
-          setName('')
-        }}
-      >
-        Confirm the name
-      </button>
+      <div>
+        <input value={name} onChange={(e) => setName(e.currentTarget.value)} />
+        <button
+          onClick={() => {
+            socket.emit('client-name-sent', name)
+            setName('')
+          }}
+        >
+          Confirm the name
+        </button>
+      </div>
 
-      <textarea value={message} onChange={(e) => setMessage(e.currentTarget.value)}></textarea>
-      <button
-        onClick={() => {
-          socket.emit('client-message-sent', message)
+      <div>
+        <textarea value={message} onChange={(e) => setMessage(e.currentTarget.value)}></textarea>
+        <button
+          onClick={() => {
+            socket.emit('client-message-sent', message)
 
-          setMessage('')
-        }}
-      >
-        Send
-      </button>
+            setMessage('')
+          }}
+        >
+          Send
+        </button>
+      </div>
     </>
   )
 }
