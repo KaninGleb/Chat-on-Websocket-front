@@ -18,6 +18,7 @@ function App() {
   const [messages, setMessages] = useState<Array<any>>([])
 
   const [message, setMessage] = useState('')
+  const [name, setName] = useState('Gleb')
 
   return (
     <>
@@ -38,6 +39,16 @@ function App() {
           </div>
         ))}
       </div>
+
+      <input value={name} onChange={(e) => setName(e.currentTarget.value)} />
+      <button
+        onClick={() => {
+          socket.emit('client-name-sent', name)
+          setName('')
+        }}
+      >
+        Confirm the name
+      </button>
 
       <textarea value={message} onChange={(e) => setMessage(e.currentTarget.value)}></textarea>
       <button
