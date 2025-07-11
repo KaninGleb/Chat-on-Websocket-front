@@ -26,8 +26,16 @@ function App() {
         ))}
       </div>
 
-      <textarea></textarea>
-      <button>Send</button>
+      <textarea value={message} onChange={(e) => setMessage(e.currentTarget.value)}></textarea>
+      <button
+        onClick={() => {
+          socket.emit('client-message-sent', message)
+
+          setMessage('')
+        }}
+      >
+        Send
+      </button>
     </>
   )
 }
