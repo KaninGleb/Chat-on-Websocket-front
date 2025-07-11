@@ -10,6 +10,9 @@ function App() {
       console.log(messages)
       setMessages(messages)
     })
+    socket.on('new-message-sent', (message: any) => {
+      setMessages((messages) => [...messages, message])
+    })
   }, [])
 
   const [messages, setMessages] = useState<Array<any>>([])
