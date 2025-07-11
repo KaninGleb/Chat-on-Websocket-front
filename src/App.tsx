@@ -25,6 +25,7 @@ function App() {
           width: '300px',
           height: '300px',
           overflowY: 'scroll',
+          textAlign: 'left',
         }}
       >
         {messages.map((m) => (
