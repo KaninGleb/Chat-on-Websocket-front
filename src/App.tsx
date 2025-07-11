@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import io from 'socket.io-client'
-import './App.css'
+import s from './App.module.css'
 
 const socket = io('https://chat-on-websocket-back.onrender.com')
 
@@ -18,31 +18,28 @@ function App() {
   const [messages, setMessages] = useState<Array<any>>([])
 
   const [message, setMessage] = useState('')
-  const [name, setName] = useState('Gleb')
+  const [name, setName] = useState('')
 
   return (
     <>
-      <div
-        style={{
-          border: '1px solid black',
-          padding: '10px',
-          width: '300px',
-          height: '300px',
-          overflowY: 'scroll',
-          textAlign: 'left',
-        }}
-      >
+      <div className={s.messagesContainer}>
         {messages.map((m) => (
-          <div key={m.id}>
+          <div key={m.id} className={s.messageItem}>
             <b>{m.user.name}:</b> {m.message}
             <hr />
           </div>
         ))}
       </div>
 
-      <div>
-        <input value={name} onChange={(e) => setName(e.currentTarget.value)} />
+      <div className={s.formGroup}>
+        <input
+          className={s.inputField}
+          value={name}
+          onChange={(e) => setName(e.currentTarget.value)}
+          placeholder='Enter your name'
+        />
         <button
+          className={s.button}
           onClick={() => {
             socket.emit('client-name-sent', name)
             setName('')
@@ -52,12 +49,18 @@ function App() {
         </button>
       </div>
 
-      <div>
-        <textarea value={message} onChange={(e) => setMessage(e.currentTarget.value)}></textarea>
+      <div className={s.formGroup}>
+        <textarea
+          className={s.textareaField}
+          value={message}
+          onChange={(e) => setMessage(e.currentTarget.value)}
+          placeholder='Type your message'
+          rows={4}
+        />
         <button
+          className={s.button}
           onClick={() => {
             socket.emit('client-message-sent', message)
-
             setMessage('')
           }}
         >
