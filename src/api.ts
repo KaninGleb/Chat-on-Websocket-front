@@ -5,4 +5,8 @@ export const api = {
   createConnection() {
     this.socket = io('https://chat-on-websocket-back.onrender.com')
   },
+  subscribe(initMessagesHandler: (messages: any) => void, newMessageSentHandler: (newMessage: any) => void) {
+    this.socket?.on('init-messages-published', initMessagesHandler)
+    this.socket?.on('new-message-sent', newMessageSentHandler)
+  },
 }
