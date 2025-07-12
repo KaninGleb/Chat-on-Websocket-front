@@ -1,4 +1,5 @@
 import { api } from './api.ts'
+import type { ServerStatusType } from './components'
 
 type Message = {
   id: string
@@ -9,9 +10,11 @@ type Message = {
   }
 }
 
+
 const initialState = {
   messages: [],
   typingUsers: [],
+  connectionStatus: 'offline' as ServerStatusType,
 }
 
 export const chatReducer = (state: any = initialState, action: any) => {
@@ -45,6 +48,10 @@ export const chatReducer = (state: any = initialState, action: any) => {
       }
     }
 
+    case 'CONNECTION-STATUS-UPDATED': {
+      return {...state, connectionStatus: action.status}
+    }
+
     default:
       return state
   }
@@ -58,8 +65,11 @@ export const typingUserAdded = (user: any) => ({ type: 'TYPING-USER-ADDED', user
 
 export const typingUserRemoved = (user: any) => ({ type: 'TYPING-USER-REMOVED', user }) as const
 
+export const setConnectionStatus = (status: ServerStatusType) => ({ type: 'CONNECTION-STATUS-UPDATED', status }) as const
+
 export const createConnection = () => (dispatch: any) => {
   api.createConnection()
+  dispatch(setConnectionStatus('online'))
   api.subscribe(
     (messages: any) => {
       dispatch(messagesReceived(messages))
@@ -74,6 +84,10 @@ export const createConnection = () => (dispatch: any) => {
       dispatch(typingUserRemoved(user))
     },
   )
+
+  api.onDisconnect(() => {
+    dispatch(setConnectionStatus('offline'))
+  })
 }
 
 export const sendClientName = (name: string) => () => {
@@ -92,6 +106,7 @@ export const sendClientMessage = (message: string) => () => {
   api.sendMessage(message)
 }
 
-export const destroyConnection = () => () => {
+export const destroyConnection = () => (dispatch: any) => {
   api.destroyConnection()
+  dispatch(setConnectionStatus('offline'))
 }
