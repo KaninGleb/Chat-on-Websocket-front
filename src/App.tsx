@@ -23,6 +23,7 @@ function App() {
   const [name, setName] = useState('')
   const [isAutoScrollActive, setIsAutoScrollActive] = useState(true)
   const [lastScrollTop, setLastScrollTop] = useState(0)
+  const [isTyping, setIsTyping] = useState(false)
 
   const messagesAnchorRef = useRef<HTMLDivElement>(null)
 
@@ -42,7 +43,11 @@ function App() {
     if (isAutoScrollActive) {
       messagesAnchorRef.current?.scrollIntoView({ behavior: 'smooth' })
     }
-  }, [messages, isAutoScrollActive])
+  }, [messages, isAutoScrollActive, isTyping])
+
+  useEffect(() => {
+    setIsTyping(typingUsers.length > 0)
+  }, [typingUsers])
 
   return (
     <>
@@ -57,7 +62,6 @@ function App() {
           <div key={m.id}>
             <b>{m.name + ' '}</b>
             is typing...
-            <hr/>
           </div>
         ))}
         <div ref={messagesAnchorRef}></div>
