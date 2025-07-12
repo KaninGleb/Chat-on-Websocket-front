@@ -38,6 +38,13 @@ export const chatReducer = (state: any = initialState, action: any) => {
       }
     }
 
+    case 'TYPING-USER-REMOVED': {
+      return {
+        ...state,
+        typingUsers: state.typingUsers.filter((u: any) => u.id !== action.user.id),
+      }
+    }
+
     default:
       return state
   }
@@ -49,7 +56,7 @@ export const newMessageReceived = (newMessage: any) => ({ type: 'NEW-MESSAGE-REC
 
 export const typingUserAdded = (user: any) => ({ type: 'TYPING-USER-ADDED', user }) as const
 
-
+export const typingUserRemoved = (user: any) => ({ type: 'TYPING-USER-REMOVED', user }) as const
 
 export const createConnection = () => (dispatch: any) => {
   api.createConnection()
@@ -63,6 +70,9 @@ export const createConnection = () => (dispatch: any) => {
     (user: any) => {
       dispatch(typingUserAdded(user))
     },
+    (user: any) => {
+      dispatch(typingUserRemoved(user))
+    },
   )
 }
 
@@ -74,7 +84,9 @@ export const typeMessage = () => () => {
   api.typeMessage()
 }
 
-
+export const stopTypingMessage = () => () => {
+  api.stopTyping()
+}
 
 export const sendClientMessage = (message: string) => () => {
   api.sendMessage(message)
