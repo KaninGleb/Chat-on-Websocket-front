@@ -13,4 +13,7 @@ export const api = {
     this.socket?.disconnect()
     this.socket = null
   },
+  sendName(name: string) {
+    this.socket?.emit('client-name-sent', name)
+  },
 }
