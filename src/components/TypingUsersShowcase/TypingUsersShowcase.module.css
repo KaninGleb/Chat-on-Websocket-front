@@ -1,0 +1,25 @@
+.typingIndicator {
+    margin-bottom: 8px;
+    color: #666;
+    font-style: italic;
+    display: flex;
+    align-items: center;
+}
+
+.typingIndicator b {
+    color: #2c7be5;
+    margin-right: 4px;
+    font-style: normal;
+}
+
+.typingIndicator::after {
+    content: "...";
+    display: inline-block;
+    animation: typingDots 1.5s infinite;
+}
+
+@keyframes typingDots {
+    0% { opacity: 0.2; }
+    20% { opacity: 1; }
+    100% { opacity: 0.2; }
+}
