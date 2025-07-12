@@ -1,27 +1,22 @@
 import { useState, useEffect, useRef, type UIEvent } from 'react'
-import io from 'socket.io-client'
+import { useSelector, useDispatch } from 'react-redux'
+import type { AppStateType, AppDispatch } from './store.ts'
+import { createConnection, destroyConnection, sendClientName, sendClientMessage } from './chat-reducer.ts'
 import s from './App.module.css'
 
-const socket = io('https://chat-on-websocket-back.onrender.com')
-
 function App() {
+  const messages = useSelector((state: AppStateType) => state.chat.messages)
+  const dispatch = useDispatch<AppDispatch>()
+
   useEffect(() => {
-    socket.on('init-messages-published', (messages: any) => {
-      console.log(messages)
-      setMessages(messages)
-    })
-    socket.on('new-message-sent', (message: any) => {
-      setMessages((messages) => {
-        const exists = messages.some((m) => m.id === message.id)
-        if (exists) {
-          return messages
-        }
-        return [...messages, message]
-      })
-    })
+    dispatch(createConnection())
+
+    return () => {
+      dispatch(destroyConnection())
+    }
   }, [])
 
-  const [messages, setMessages] = useState<Array<any>>([])
+  // const [messages, setMessages] = useState<Array<any>>([])
 
   const [message, setMessage] = useState('')
   const [name, setName] = useState('')
@@ -51,7 +46,7 @@ function App() {
   return (
     <>
       <div className={s.messagesContainer} onScroll={handleScroll}>
-        {messages.map((m) => (
+        {messages.map((m: any) => (
           <div key={m.id} className={s.messageItem}>
             <b>{m.user.name}:</b> {m.message}
           </div>
@@ -69,7 +64,7 @@ function App() {
         <button
           className={s.button}
           onClick={() => {
-            socket.emit('client-name-sent', name)
+            dispatch(sendClientName(name))
             setName('')
           }}
         >
@@ -88,7 +83,7 @@ function App() {
         <button
           className={s.button}
           onClick={() => {
-            socket.emit('client-message-sent', message)
+            dispatch(sendClientMessage(message))
             setMessage('')
           }}
         >
