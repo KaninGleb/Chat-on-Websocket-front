@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState, useEffect, useRef, type UIEvent } from 'react'
 import io from 'socket.io-client'
 import s from './App.module.css'
 
@@ -25,16 +25,38 @@ function App() {
 
   const [message, setMessage] = useState('')
   const [name, setName] = useState('')
+  const [isAutoScrollActive, setIsAutoScrollActive] = useState(true)
+  const [lastScrollTop, setLastScrollTop] = useState(0)
+
+  const messagesAnchorRef = useRef<HTMLDivElement>(null)
+
+  const handleScroll = (e: UIEvent<HTMLDivElement>) => {
+    const element = e.currentTarget
+    const maxScrollPosition = element.scrollHeight - element.clientHeight
+
+    if (element.scrollTop > lastScrollTop && Math.abs(maxScrollPosition - element.scrollTop) < 10) {
+      setIsAutoScrollActive(true)
+    } else {
+      setIsAutoScrollActive(false)
+    }
+    setLastScrollTop(element.scrollTop)
+  }
+
+  useEffect(() => {
+    if (isAutoScrollActive) {
+      messagesAnchorRef.current?.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [messages, isAutoScrollActive])
 
   return (
     <>
-      <div className={s.messagesContainer}>
+      <div className={s.messagesContainer} onScroll={handleScroll}>
         {messages.map((m) => (
           <div key={m.id} className={s.messageItem}>
             <b>{m.user.name}:</b> {m.message}
-            <hr />
           </div>
         ))}
+        <div ref={messagesAnchorRef}></div>
       </div>
 
       <div className={s.nameInputGroup}>
