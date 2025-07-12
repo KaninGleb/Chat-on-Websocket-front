@@ -12,3 +12,5 @@ export const store = createStore(
   rootReducer,
   applyMiddleware(thunk)
 )
+
+export type AppDispatch = ThunkDispatch<AppStateType, unknown, Action>
