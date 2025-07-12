@@ -100,6 +100,8 @@ function App() {
           className={s.button}
           onClick={() => {
             dispatch(sendClientMessage(message))
+            dispatch(stopTypingMessage())
+            setIsAutoScrollActive(true)
             setMessage('')
           }}
         >
