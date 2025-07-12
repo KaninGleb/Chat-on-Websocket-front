@@ -16,4 +16,7 @@ export const api = {
   sendName(name: string) {
     this.socket?.emit('client-name-sent', name)
   },
+  sendMessage(message: string) {
+    this.socket?.emit('client-message-sent', message)
+  },
 }
