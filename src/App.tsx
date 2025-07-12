@@ -11,7 +11,13 @@ function App() {
       setMessages(messages)
     })
     socket.on('new-message-sent', (message: any) => {
-      setMessages((messages) => [...messages, message])
+      setMessages((messages) => {
+        const exists = messages.some((m) => m.id === message.id)
+        if (exists) {
+          return messages
+        }
+        return [...messages, message]
+      })
     })
   }, [])
 
