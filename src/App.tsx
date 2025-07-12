@@ -7,14 +7,16 @@ import {
   sendClientName,
   sendClientMessage,
   typeMessage,
-  stopTypingMessage
+  stopTypingMessage,
 } from './chat-reducer.ts'
+import { ServerStatus, TypingUsersShowcase } from './components'
 import s from './App.module.css'
-import { TypingUsersShowcase } from './components'
 
 function App() {
   const messages = useSelector((state: AppStateType) => state.chat.messages)
   const typingUsers = useSelector((state: AppStateType) => state.chat.typingUsers)
+  const connectionStatus = useSelector((state: AppStateType) => state.chat.connectionStatus)
+
   const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => {
@@ -69,6 +71,13 @@ function App() {
 
   return (
     <>
+      <div className={s.headerInfo}>
+        <div className={s.userName}>
+          Your name: {' '} <b>{currentName}</b>
+        </div>
+        <ServerStatus status={connectionStatus} />
+      </div>
+
       <div className={s.messagesContainer} onScroll={handleScroll}>
         {messages.map((m: any) => (
           <div key={m.id} className={s.messageItem}>
@@ -89,10 +98,7 @@ function App() {
         />
         <button
           className={s.button}
-          onClick={() => {
-            dispatch(sendClientName(name))
-            setName('')
-          }}
+          onClick={handleConfirmName}
         >
           Confirm the name
         </button>
