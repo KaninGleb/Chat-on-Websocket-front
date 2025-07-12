@@ -16,6 +16,9 @@ export const api = {
     this.socket?.on('user-typing', userTypingHandler)
     this.socket?.on('user-stopped-typing', userStopTypingHandler)
   },
+  onDisconnect(disconnectHandler: () => void) {
+    this.socket?.on('disconnect', disconnectHandler)
+  },
   destroyConnection() {
     this.socket?.disconnect()
     this.socket = null
