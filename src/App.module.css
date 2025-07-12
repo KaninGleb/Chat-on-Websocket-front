@@ -26,12 +26,12 @@ body {
 .messagesContainer {
     border: 1px solid #444;
     border-radius: 8px;
-    padding: 12px 16px;
+    padding: 12px 10px 4px 16px;
     width: 400px;
     height: 600px;
     overflow-y: auto;
     text-align: left;
-    margin: 0 auto 20px auto;
+    margin-bottom: 20px;
     background-color: #1f1f1f;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     scrollbar-width: thin;
@@ -54,8 +54,13 @@ body {
 }
 
 .messageItem {
-    margin-bottom: 12px;
+    padding: 12px 16px;
     word-wrap: break-word;
+    border-bottom: 1px solid #eeeeee;
+    background-color: #262634;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    transition: background-color 0.3s ease;
 }
 
 .messageItem b {
