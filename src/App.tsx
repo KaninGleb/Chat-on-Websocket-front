@@ -10,6 +10,7 @@ import {
   stopTypingMessage
 } from './chat-reducer.ts'
 import s from './App.module.css'
+import { TypingUsersShowcase } from './components'
 
 function App() {
   const messages = useSelector((state: AppStateType) => state.chat.messages)
@@ -65,12 +66,7 @@ function App() {
           </div>
         ))}
 
-        {typingUsers.map((m: any) => (
-          <div key={m.id}>
-            <b>{m.name + ' '}</b>
-            is typing...
-          </div>
-        ))}
+        <TypingUsersShowcase typingUsers={typingUsers} />
         <div ref={messagesAnchorRef}></div>
       </div>
 
