@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef, type UIEvent } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import type { AppStateType, AppDispatch } from './store.ts'
-import { createConnection, destroyConnection, sendClientName, sendClientMessage } from './chat-reducer.ts'
+import { createConnection, destroyConnection, sendClientName, sendClientMessage, typeMessage } from './chat-reducer.ts'
 import s from './App.module.css'
 
 function App() {
   const messages = useSelector((state: AppStateType) => state.chat.messages)
+  const typingUsers = useSelector((state: AppStateType) => state.chat.typingUsers)
   const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => {
@@ -51,6 +52,14 @@ function App() {
             <b>{m.user.name}:</b> {m.message}
           </div>
         ))}
+
+        {typingUsers.map((m: any) => (
+          <div key={m.id}>
+            <b>{m.name + ' '}</b>
+            is typing...
+            <hr/>
+          </div>
+        ))}
         <div ref={messagesAnchorRef}></div>
       </div>
 
@@ -77,6 +86,9 @@ function App() {
           className={s.textareaField}
           value={message}
           onChange={(e) => setMessage(e.currentTarget.value)}
+          onKeyDown={() => {
+            dispatch(typeMessage())
+          }}
           placeholder='Type your message'
           rows={4}
         />
