@@ -9,10 +9,12 @@ export const api = {
     initMessagesHandler: (messages: any) => void,
     newMessageSentHandler: (newMessage: any) => void,
     userTypingHandler: (user: any) => void,
+    userStopTypingHandler: (user: any) => void,
   ) {
     this.socket?.on('init-messages-published', initMessagesHandler)
     this.socket?.on('new-message-sent', newMessageSentHandler)
     this.socket?.on('user-typing', userTypingHandler)
+    this.socket?.on('user-stopped-typing', userStopTypingHandler)
   },
   destroyConnection() {
     this.socket?.disconnect()
@@ -26,5 +28,8 @@ export const api = {
   },
   typeMessage() {
     this.socket?.emit('client-typed')
+  },
+  stopTyping() {
+    this.socket?.emit('client-stopped-typing')
   },
 }
