@@ -59,6 +59,14 @@ function App() {
     setIsTyping(typingUsers.length > 0)
   }, [typingUsers])
 
+  const handleConfirmName = () => {
+    if (name.trim() === '') return
+    dispatch(sendClientName(name.trim()))
+    localStorage.setItem('userName', name)
+    setCurrentName(name)
+    setName('')
+  }
+
   return (
     <>
       <div className={s.messagesContainer} onScroll={handleScroll}>
