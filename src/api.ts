@@ -9,4 +9,8 @@ export const api = {
     this.socket?.on('init-messages-published', initMessagesHandler)
     this.socket?.on('new-message-sent', newMessageSentHandler)
   },
+  destroyConnection() {
+    this.socket?.disconnect()
+    this.socket = null
+  },
 }
