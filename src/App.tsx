@@ -31,7 +31,7 @@ function App() {
         ))}
       </div>
 
-      <div className={s.formGroup}>
+      <div className={s.nameInputGroup}>
         <input
           className={s.inputField}
           value={name}
@@ -49,7 +49,7 @@ function App() {
         </button>
       </div>
 
-      <div className={s.formGroup}>
+      <div className={s.textareaGroup}>
         <textarea
           className={s.textareaField}
           value={message}
@@ -64,7 +64,7 @@ function App() {
             setMessage('')
           }}
         >
-          Send
+          Send the message
         </button>
       </div>
     </>

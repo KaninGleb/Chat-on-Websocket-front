@@ -27,8 +27,8 @@ body {
     border: 1px solid #444;
     border-radius: 8px;
     padding: 12px 16px;
-    width: 320px;
-    height: 350px;
+    width: 400px;
+    height: 600px;
     overflow-y: auto;
     text-align: left;
     margin: 0 auto 20px auto;
@@ -62,19 +62,40 @@ body {
     color: #646cff;
 }
 
-.inputField,
-.textareaField {
-    width: 320px;
-    max-width: 100%;
+.baseInput {
     padding: 8px 12px;
-    margin-bottom: 12px;
     border-radius: 6px;
     border: 1px solid #444;
-    background-color: #2a2a2a;
     color: #eee;
     font-size: 1em;
     font-family: inherit;
+    background-color: #2a2a2a;
+}
+
+.nameInputGroup {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.inputField {
+    composes: baseInput;
+    width: 100%;
+    line-height: 1.5;
+}
+
+.textareaGroup {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.textareaField {
+    composes: baseInput;
+    margin-bottom: 12px;
     resize: vertical;
+    min-height: 22px;
+    max-height: 150px;
     transition: border-color 0.3s ease;
 }
 
@@ -97,7 +118,7 @@ body {
     cursor: pointer;
     transition: background-color 0.3s ease, border-color 0.3s ease;
     user-select: none;
-    margin-right: 8px;
+    white-space: nowrap;
 }
 
 .button:hover {
@@ -109,11 +130,4 @@ body {
 .button:focus-visible {
     outline: 4px auto -webkit-focus-ring-color;
     outline-offset: 2px;
-}
-
-.formGroup {
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
