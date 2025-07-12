@@ -29,6 +29,8 @@ function App() {
 
   const [message, setMessage] = useState('')
   const [name, setName] = useState('')
+  const [currentName, setCurrentName] = useState<string>(() => localStorage.getItem('userName') || 'Anonymous')
+
   const [isAutoScrollActive, setIsAutoScrollActive] = useState(true)
   const [lastScrollTop, setLastScrollTop] = useState(0)
   const [isTyping, setIsTyping] = useState(false)
