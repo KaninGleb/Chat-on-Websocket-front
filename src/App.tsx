@@ -1,7 +1,14 @@
 import { useState, useEffect, useRef, type UIEvent } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import type { AppStateType, AppDispatch } from './store.ts'
-import { createConnection, destroyConnection, sendClientName, sendClientMessage, typeMessage } from './chat-reducer.ts'
+import {
+  createConnection,
+  destroyConnection,
+  sendClientName,
+  sendClientMessage,
+  typeMessage,
+  stopTypingMessage
+} from './chat-reducer.ts'
 import s from './App.module.css'
 
 function App() {
@@ -89,7 +96,16 @@ function App() {
         <textarea
           className={s.textareaField}
           value={message}
-          onChange={(e) => setMessage(e.currentTarget.value)}
+          onChange={(e) => {
+            const newMessage = e.currentTarget.value
+            setMessage(newMessage)
+
+            if (newMessage.trim() !== '') {
+              dispatch(typeMessage())
+            } else {
+              dispatch(stopTypingMessage())
+            }
+          }}
           onKeyDown={() => {
             dispatch(typeMessage())
           }}
