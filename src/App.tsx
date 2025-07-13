@@ -52,6 +52,12 @@ function App() {
   }
 
   useEffect(() => {
+    if (currentName && currentName !== 'Anonymous') {
+      dispatch(sendClientName(currentName))
+    }
+  }, [currentName])
+
+  useEffect(() => {
     if (isAutoScrollActive) {
       messagesAnchorRef.current?.scrollIntoView({ behavior: 'smooth' })
     }
