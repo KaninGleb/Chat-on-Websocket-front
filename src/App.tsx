@@ -133,10 +133,10 @@ function App() {
       {/*</div>*/}
 
       <section className={s.inputSection}>
-        <div className={s.textareaContainer}>
-          <div className={s.textareaGroup}>
+        <div className={s.inputContainer}>
+          <div className={s.inputGroup}>
             <input
-              className={s.textareaField}
+              className={s.inputMessage}
               value={message}
               onChange={(e) => {
                 const newMessage = e.currentTarget.value

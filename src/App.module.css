@@ -214,18 +214,18 @@ body {
     position: relative;
 }
 
-.textareaContainer {
+.inputContainer {
     width: 100%;
     max-width: var(--max-area-width);
     box-sizing: border-box;
 }
 
-.textareaGroup {
+.inputGroup {
     display: flex;
     gap: 20px;
 }
 
-.textareaField {
+.inputMessage {
     composes: baseInput;
     padding: 16px 12px;
     border-radius: 16px;
@@ -236,7 +236,7 @@ body {
 }
 
 .inputField:focus,
-.textareaField:focus {
+.inputMessage:focus {
     outline: none;
     border-color: #646cff;
     box-shadow: 0 0 6px #646cff88;
