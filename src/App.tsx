@@ -89,7 +89,7 @@ function App() {
       </header>
 
       <div className={s.messagesContainer} onScroll={handleScroll}>
-        <div>
+        <div className={s.messagesWrapper}>
           {messages.map((m: any) => (
             <div key={m.id} className={`${s.messageItem} ${m.user.name === currentName ? s.own : s.other}`}>
               <svg
