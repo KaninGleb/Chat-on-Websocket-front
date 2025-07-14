@@ -80,6 +80,7 @@
     white-space: nowrap;
     height: 55px;
     width: 55px;
+    margin-bottom: 6px;
 }
 
 .sendButton:hover {

@@ -1,5 +1,4 @@
 import {
-  useState,
   useCallback,
   type UIEvent,
   type Dispatch,
@@ -23,8 +22,8 @@ type MessagesListPropsType = {
 
 export const MessagesList = memo(({ messages, userName, isAutoScrollActive, setIsAutoScrollActive }: MessagesListPropsType) => {
   const typingUsers = useSelector((state: AppStateType) => state.chat.typingUsers)
-  const [lastScrollTop, setLastScrollTop] = useState(0)
-  const [isTyping, setIsTyping] = useState(false)
+  const lastScrollTopRef = useRef(0)
+  const isTyping = typingUsers.length > 0
 
   const messagesAnchorRef = useRef<HTMLDivElement>(null)
 
@@ -35,27 +34,23 @@ export const MessagesList = memo(({ messages, userName, isAutoScrollActive, setI
 
     if (scrollFromBottom > 200) {
       setIsAutoScrollActive(false)
-      setLastScrollTop(element.scrollTop)
+      lastScrollTopRef.current = element.scrollTop
       return
     }
 
-    if (element.scrollTop > lastScrollTop && Math.abs(maxScrollPosition - element.scrollTop) < 10) {
+    if (element.scrollTop > lastScrollTopRef.current && Math.abs(maxScrollPosition - element.scrollTop) < 10) {
       setIsAutoScrollActive(true)
     } else {
       setIsAutoScrollActive(false)
     }
-    setLastScrollTop(element.scrollTop)
-  }, [lastScrollTop, setIsAutoScrollActive])
+    lastScrollTopRef.current = element.scrollTop
+  }, [setIsAutoScrollActive])
 
   useEffect(() => {
     if (isAutoScrollActive) {
       messagesAnchorRef.current?.scrollIntoView({ behavior: 'smooth' })
     }
   }, [messages, isAutoScrollActive, isTyping])
-
-  useEffect(() => {
-    setIsTyping(typingUsers.length > 0)
-  }, [typingUsers])
 
   return (
     <div className={s.messagesContainer} onScroll={handleScroll}>
