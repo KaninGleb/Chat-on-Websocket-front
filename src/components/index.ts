@@ -7,3 +7,5 @@ export type { ServerStatusType } from './ServerStatus/ServerStatus'
 
 export { MessagesList } from './MessagesList/MessagesList'
 export { MessageItem } from './MessagesList/MessageItem/MessageItem'
+
+export { MessageInput } from './MessageInput/MessageInput'
