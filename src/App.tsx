@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, type UIEvent } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import type { AppStateType, AppDispatch } from './store.ts'
 import {
@@ -9,9 +9,10 @@ import {
   typeMessage,
   stopTypingMessage,
 } from './chat-reducer.ts'
-import { Header, MessageItem, TypingUsersShowcase } from './components'
+import { Header } from './components'
 import s from './App.module.css'
 import sendIcon from './assets/send-button-icon.svg'
+import { MessagesList } from './components'
 
 function App() {
   const messages = useSelector((state: AppStateType) => state.chat.messages)
@@ -32,31 +33,18 @@ function App() {
 
   const [message, setMessage] = useState('')
   const [name, setName] = useState('')
-  const [currentName, setCurrentName] = useState<string>(() => localStorage.getItem('userName') || 'Anonymous')
+  const [chatUserName, setChatUserName] = useState<string>(() => localStorage.getItem('userName') || 'Anonymous')
 
   const [isAutoScrollActive, setIsAutoScrollActive] = useState(true)
-  const [lastScrollTop, setLastScrollTop] = useState(0)
   const [isTyping, setIsTyping] = useState(false)
 
   const messagesAnchorRef = useRef<HTMLDivElement>(null)
 
-  const handleScroll = (e: UIEvent<HTMLDivElement>) => {
-    const element = e.currentTarget
-    const maxScrollPosition = element.scrollHeight - element.clientHeight
-
-    if (element.scrollTop > lastScrollTop && Math.abs(maxScrollPosition - element.scrollTop) < 10) {
-      setIsAutoScrollActive(true)
-    } else {
-      setIsAutoScrollActive(false)
-    }
-    setLastScrollTop(element.scrollTop)
-  }
-
   useEffect(() => {
-    if (currentName && currentName !== 'Anonymous') {
-      dispatch(sendClientName(currentName))
+    if (chatUserName && chatUserName !== 'Anonymous') {
+      dispatch(sendClientName(chatUserName))
     }
-  }, [currentName])
+  }, [chatUserName])
 
   useEffect(() => {
     if (isAutoScrollActive) {
@@ -72,23 +60,20 @@ function App() {
     if (name.trim() === '') return
     dispatch(sendClientName(name.trim()))
     localStorage.setItem('userName', name)
-    setCurrentName(name)
+    setChatUserName(name)
     setName('')
   }
 
   return (
     <div className={s.appContainer}>
-      <Header userName={currentName} connectionStatus={connectionStatus} />
+      <Header userName={chatUserName} connectionStatus={connectionStatus} />
 
-      <div className={s.messagesContainer} onScroll={handleScroll}>
-        <div className={s.messagesWrapper}>
-          {messages.map((m: any) => (
-            <MessageItem  key={m.id} currentName={currentName} message={m} />
-          ))}
-          <TypingUsersShowcase typingUsers={typingUsers} />
-          <div ref={messagesAnchorRef}></div>
-        </div>
-      </div>
+      <MessagesList
+        messages={messages}
+        userName={chatUserName}
+        anchorRef={messagesAnchorRef}
+        setIsAutoScrollActive={setIsAutoScrollActive}
+      />
 
       {/*<div className={s.nameInputGroup}>*/}
       {/*  <input*/}

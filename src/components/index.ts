@@ -5,4 +5,5 @@ export { Header } from './Header/Header'
 export { ServerStatus } from './ServerStatus/ServerStatus'
 export type { ServerStatusType } from './ServerStatus/ServerStatus'
 
-export { MessageItem } from './MessageItem/MessageItem'
+export { MessagesList } from './MessagesList/MessagesList'
+export { MessageItem } from './MessagesList/MessageItem/MessageItem'
