@@ -8,10 +8,10 @@ type HeaderType = {
 
 export const Header = ({ userName, connectionStatus }: HeaderType) => (
   <header className={s.header}>
-    <div className={s.headerContainer}>
-      <div className={s.headerInfo}>
-        <div className={s.userName}>
-          Your name: <b>{userName}</b>
+    <div className={s.container}>
+      <div className={s.info}>
+        <div className={s.user}>
+          Your name: <span className={s.userName}>{userName}</span>
         </div>
         <ServerStatus status={connectionStatus} />
       </div>

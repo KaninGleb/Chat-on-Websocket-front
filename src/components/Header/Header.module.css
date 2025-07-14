@@ -1,30 +1,31 @@
 .header {
-  flex-shrink: 0;
-  background-color: #2a2a2a;
+    flex-shrink: 0;
+    background-color: #2a2a2a;
+    color: #ddd;
+    font-size: 1rem;
 }
 
-.headerContainer {
-  max-width: var(--max-area-width);
-  width: 100%;
-  min-height: 100%;
-  margin: 0 auto;
+.container {
+    max-width: var(--max-area-width);
+    width: 100%;
+    min-height: 100%;
+    margin: 0 auto;
+    padding: 16px 20px;
 }
 
-.headerInfo {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #ddd;
-  font-size: 1rem;
-  font-weight: 500;
-  padding: 16px 20px;
+.info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    font-weight: 500;
+}
+
+.user {
+    font-size: 0.95em;
 }
 
 .userName {
-  font-size: 0.95em;
-}
-
-.userName b {
-  color: #646cff;
-  font-weight: 600;
+    color: #8c93ff;
+    font-weight: 600;
 }
