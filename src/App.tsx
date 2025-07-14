@@ -77,12 +77,16 @@ function App() {
 
   return (
     <>
-      <div className={s.headerInfo}>
-        <div className={s.userName}>
-          Your name: <b>{currentName}</b>
+      <header className={s.header}>
+        <div className={s.headerContainer}>
+          <div className={s.headerInfo}>
+            <div className={s.userName}>
+              Your name: <b>{currentName}</b>
+            </div>
+            <ServerStatus status={connectionStatus} />
+          </div>
         </div>
-        <ServerStatus status={connectionStatus} />
-      </div>
+      </header>
 
       <div className={s.messagesContainer} onScroll={handleScroll}>
         {messages.map((m: any) => (
