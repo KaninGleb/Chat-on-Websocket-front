@@ -32,7 +32,7 @@ export const MessagesList = ({ messages, userName, anchorRef, setIsAutoScrollAct
         {messages.map((m) => (
           <MessageItem key={m.id} currentName={userName} message={m} />
         ))}
-        <TypingUsersShowcase typingUsers={[]} />
+        <TypingUsersShowcase/>
         <div ref={anchorRef}></div>
       </div>
     </div>
