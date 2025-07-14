@@ -36,8 +36,17 @@ body {
     background-color: #2a2a2a;
 }
 
+.appContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0 auto;
+    background-color: #242424;
+}
+
 /* ----- Styles for chat header ----- */
 .header {
+    flex-shrink: 0;
     background-color: #2a2a2a;
 }
 
@@ -71,8 +80,9 @@ body {
 .messagesContainer {
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
     width: var(--max-area-width);
-    height: 80vh;
+    /*height: 80vh;*/
     margin: 0 auto;
     overflow-y: auto;
     text-align: left;
@@ -198,11 +208,13 @@ body {
     max-width: var(--max-area-width);
     width: 100%;
     margin: 0 auto;
+    flex-shrink: 0;
+    padding: 16px 0 20px;
+    min-height: 60px;
+    position: relative;
 }
 
 .textareaContainer {
-    position: absolute;
-    bottom: 20px;
     width: 100%;
     max-width: var(--max-area-width);
     box-sizing: border-box;

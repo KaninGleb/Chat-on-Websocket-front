@@ -76,7 +76,7 @@ function App() {
   }
 
   return (
-    <>
+    <div className={s.appContainer}>
       <header className={s.header}>
         <div className={s.headerContainer}>
           <div className={s.headerInfo}>
@@ -167,7 +167,7 @@ function App() {
           </div>
         </div>
       </section>
-    </>
+    </div>
   )
 }
 
