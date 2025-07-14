@@ -103,8 +103,13 @@ body {
 }
 
 .messagesContainer::-webkit-scrollbar-thumb {
-    background-color: #646cff;
+    background-color: #2f2f2f;
+    opacity: 0.5;
     border-radius: 10px;
+}
+
+.messagesContainer::-webkit-scrollbar-thumb:hover {
+    background-color: #565656;
 }
 
 .messageItem {
