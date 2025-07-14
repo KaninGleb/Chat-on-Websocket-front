@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import type { AppDispatch, AppStateType } from './store.ts'
 import { createConnection, destroyConnection, sendClientMessage, sendClientName } from './chat-reducer.ts'
@@ -7,16 +7,12 @@ import s from './App.module.css'
 
 function App() {
   const messages = useSelector((state: AppStateType) => state.chat.messages)
-  const typingUsers = useSelector((state: AppStateType) => state.chat.typingUsers)
   const connectionStatus = useSelector((state: AppStateType) => state.chat.connectionStatus)
 
   const [name, setName] = useState('')
   const [chatUserName, setChatUserName] = useState<string>(() => localStorage.getItem('userName') || 'Anonymous')
 
   const [isAutoScrollActive, setIsAutoScrollActive] = useState(true)
-  const [isTyping, setIsTyping] = useState(false)
-
-  const messagesAnchorRef = useRef<HTMLDivElement>(null)
 
   const dispatch = useDispatch<AppDispatch>()
 
@@ -47,16 +43,6 @@ function App() {
     }
   }, [chatUserName])
 
-  useEffect(() => {
-    if (isAutoScrollActive) {
-      messagesAnchorRef.current?.scrollIntoView({ behavior: 'smooth' })
-    }
-  }, [messages, isAutoScrollActive, isTyping])
-
-  useEffect(() => {
-    setIsTyping(typingUsers.length > 0)
-  }, [typingUsers])
-
   return (
     <div className={s.appContainer}>
       <Header userName={chatUserName} connectionStatus={connectionStatus} />
@@ -64,7 +50,7 @@ function App() {
       <MessagesList
         messages={messages}
         userName={chatUserName}
-        anchorRef={messagesAnchorRef}
+        isAutoScrollActive={isAutoScrollActive}
         setIsAutoScrollActive={setIsAutoScrollActive}
       />
 
