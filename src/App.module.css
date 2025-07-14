@@ -11,16 +11,21 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+    --max-area-width: 1080px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     min-width: 320px;
     min-height: 100vh;
     background-color: #242424;
+    width: 100%;
 }
 
 .baseInput {
@@ -38,6 +43,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     color: #ddd;
     font-size: 1rem;
     font-weight: 500;
@@ -59,21 +65,14 @@ body {
 
 /* ----- Styles for messagesContainer ----- */
 .messagesContainer {
-    border: 1px solid #3a3a3a;
-    border-radius: 0 0 12px 12px;
-    padding: 12px 10px 4px 16px;
-    width: 100%;
-    max-width: 500px;
-    height: 600px;
-    overflow-y: auto;
-    text-align: left;
-    margin-bottom: 20px;
-    background-color: #1a1a1a;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    scrollbar-width: thin;
-    scrollbar-color: #646cff #1a1a1a;
     display: flex;
     flex-direction: column;
+    width: var(--max-area-width);
+    height: 100%;
+    max-height: 80vh;
+    margin: 0 auto;
+    overflow-y: auto;
+    text-align: left;
 }
 
 .messagesContainer::-webkit-scrollbar {
@@ -97,7 +96,8 @@ body {
     margin-bottom: .375rem;
     transition: all 0.3s ease;
     position: relative;
-    max-width: 80%;
+    width: fit-content;
+    max-width: 60%;
     animation: fadeIn 0.3s ease-out;
     line-height: 1.4;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -190,18 +190,28 @@ body {
 }
 
 .textareaGroup {
-    margin-bottom: 20px;
+    position: absolute;
+    bottom: 20px;
+
     display: flex;
-    flex-direction: column;
+    gap: 20px;
+    /*flex-direction: column;*/
+    max-width: var(--max-area-width)
 }
 
 .textareaField {
     composes: baseInput;
-    margin-bottom: 12px;
-    resize: vertical;
-    min-height: 22px;
-    max-height: 150px;
+    padding: 16px 12px;
+    /*margin-bottom: 12px;*/
+    border-radius: 16px;
+    resize: none;
+    /*height: 50px;*/
+    /*max-height: 150px;*/
+    max-height: 56px;
     transition: border-color 0.3s ease;
+
+    display: flex;
+    align-items: center;
 }
 
 .inputField:focus,
