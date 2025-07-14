@@ -44,38 +44,6 @@ body {
     background-color: #242424;
 }
 
-/* ----- Styles for chat header ----- */
-.header {
-    flex-shrink: 0;
-    background-color: #2a2a2a;
-}
-
-.headerContainer {
-    max-width: var(--max-area-width);
-    width: 100%;
-    min-height: 100%;
-    margin: 0 auto;
-}
-
-.headerInfo {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: #ddd;
-    font-size: 1rem;
-    font-weight: 500;
-    padding: 16px 20px;
-}
-
-.userName {
-    font-size: 0.95em;
-}
-
-.userName b {
-    color: #646cff;
-    font-weight: 600;
-}
-
 /* ----- Styles for messagesContainer ----- */
 .messagesContainer {
     display: flex;

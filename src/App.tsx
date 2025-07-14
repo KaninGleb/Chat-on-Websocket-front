@@ -9,7 +9,7 @@ import {
   typeMessage,
   stopTypingMessage,
 } from './chat-reducer.ts'
-import { ServerStatus, TypingUsersShowcase } from './components'
+import { Header, TypingUsersShowcase } from './components'
 import s from './App.module.css'
 import sendIcon from './assets/send-button-icon.svg'
 
@@ -78,16 +78,7 @@ function App() {
 
   return (
     <div className={s.appContainer}>
-      <header className={s.header}>
-        <div className={s.headerContainer}>
-          <div className={s.headerInfo}>
-            <div className={s.userName}>
-              Your name: <b>{currentName}</b>
-            </div>
-            <ServerStatus status={connectionStatus} />
-          </div>
-        </div>
-      </header>
+      <Header userName={currentName} connectionStatus={connectionStatus} />
 
       <div className={s.messagesContainer} onScroll={handleScroll}>
         <div className={s.messagesWrapper}>
