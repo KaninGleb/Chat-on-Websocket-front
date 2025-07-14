@@ -181,17 +181,17 @@ body {
 }
 
 /* ----- Styles for nameInputGroup ----- */
-.nameInputGroup {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-}
+/*.nameInputGroup {*/
+/*    display: flex;*/
+/*    gap: 10px;*/
+/*    margin-bottom: 20px;*/
+/*}*/
 
-.inputField {
-    composes: baseInput;
-    width: 100%;
-    line-height: 1.5;
-}
+/*.inputField {*/
+/*    composes: baseInput;*/
+/*    width: 100%;*/
+/*    line-height: 1.5;*/
+/*}*/
 
 /* ----- Styles for textarea ----- */
 .inputSection {
