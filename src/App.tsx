@@ -9,7 +9,7 @@ import {
   typeMessage,
   stopTypingMessage,
 } from './chat-reducer.ts'
-import { Header, TypingUsersShowcase } from './components'
+import { Header, MessageItem, TypingUsersShowcase } from './components'
 import s from './App.module.css'
 import sendIcon from './assets/send-button-icon.svg'
 
@@ -83,29 +83,7 @@ function App() {
       <div className={s.messagesContainer} onScroll={handleScroll}>
         <div className={s.messagesWrapper}>
           {messages.map((m: any) => (
-            <div key={m.id} className={`${s.messageItem} ${m.user.name === currentName ? s.own : s.other}`}>
-              <svg
-                width='9'
-                height='20'
-                className={`${s.svgAppendix} ${m.user.name === currentName ? s.ownAppendix : s.otherAppendix}`}
-              >
-                <g fill='none' fillRule='evenodd'>
-                  <path
-                    d='M3 17h6V0c-.193 2.84-.876 5.767-2.05 8.782-.904 2.325-2.446 4.485-4.625 6.48A1 1 0 003 17z'
-                    fill='#000'
-                  />
-                  <path
-                    d='M3 17h6V0c-.193 2.84-.876 5.767-2.05 8.782-.904 2.325-2.446 4.485-4.625 6.48A1 1 0 003 17z'
-                    fill='FFF'
-                  />
-                </g>
-              </svg>
-              <b>{m.user.name === currentName ? '' : m.user.name}</b>
-              {m.message}
-              <div className={s.messageTime}>
-                {new Date(m.time || Date.now()).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-              </div>
-            </div>
+            <MessageItem  key={m.id} currentName={currentName} message={m} />
           ))}
           <TypingUsersShowcase typingUsers={typingUsers} />
           <div ref={messagesAnchorRef}></div>

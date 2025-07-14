@@ -80,92 +80,11 @@ body {
     background-color: #565656;
 }
 
-.messageItem {
-    padding: .3125rem .5rem .375rem;
-    word-wrap: break-word;
-    background-color: #2d2d3a;
-    margin-bottom: .375rem;
-    transition: all 0.3s ease;
-    position: relative;
-    width: fit-content;
-    max-width: 60%;
-    animation: fadeIn 0.3s ease-out;
-    line-height: 1.4;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(5px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
 
-.messageItem b {
-    color: #646cff;
-    font-weight: 600;
-    display: block;
-    margin-bottom: 4px;
-    font-size: 0.9em;
-}
 
-/* Styles for my messages (right) */
-.messageItem.own {
-    align-self: flex-end;
-    background-color: #3a3a4a;
-    border-radius: 0.9375rem 0.9375rem 0 0.9375rem;
-    margin-left: auto;
-    border-left: 2px solid #646cff;
-    margin-right: 8px;
-}
 
-/* Styles for other people's messages (left) */
-.messageItem.other {
-    align-self: flex-start;
-    background-color: #2a2a3a;
-    border-radius: 0.9375rem 0.9375rem 0.9375rem 0;
-    margin-right: auto;
-    border-right: 2px solid #444;
-    margin-left: 8px;
-}
 
-.messageTime {
-    white-space: nowrap;
-    font-size: .75rem;
-    color: #888;
-    margin-top: 4px;
-    margin-left: .4375rem;
-    text-align: right;
-}
-
-.svgAppendix {
-    position: absolute;
-    bottom: -0.0625rem;
-    overflow: hidden;
-    width: .5625rem;
-    height: 1.125rem;
-}
-
-.ownAppendix {
-    right: -8px;
-    transform: scaleX(-1);
-}
-
-.otherAppendix {
-    left: -8px;
-}
-
-.messageItem.own .svgAppendix path {
-    fill: #3a3a4a;
-}
-
-.messageItem.other .svgAppendix path {
-    fill: #2a2a3a;
-}
 
 /* ----- Styles for nameInputGroup ----- */
 /*.nameInputGroup {*/
@@ -232,6 +151,7 @@ body {
 .inputAppendix {
     position: absolute;
     bottom: -1px;
+    transform: scaleX(-1);
 }
 
 .inputAppendix path {

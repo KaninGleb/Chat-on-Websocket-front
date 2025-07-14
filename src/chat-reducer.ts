@@ -1,13 +1,14 @@
 import { api } from './api.ts'
 import type { ServerStatusType } from './components'
 
-type Message = {
+export type Message = {
   id: string
   message: string
   user: {
     id: string
     name: string
   }
+  time?: string
 }
 
 
