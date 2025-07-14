@@ -22,10 +22,8 @@
 }
 
 body {
-    min-width: 320px;
     min-height: 100vh;
     background-color: #242424;
-    width: 100%;
 }
 
 .baseInput {
@@ -74,8 +72,7 @@ body {
     display: flex;
     flex-direction: column;
     width: var(--max-area-width);
-    height: 100%;
-    max-height: 80vh;
+    height: 80vh;
     margin: 0 auto;
     overflow-y: auto;
     text-align: left;
@@ -196,28 +193,34 @@ body {
     line-height: 1.5;
 }
 
-.textareaGroup {
+/* ----- Styles for textarea ----- */
+.inputSection {
+    max-width: var(--max-area-width);
+    width: 100%;
+    margin: 0 auto;
+}
+
+.textareaContainer {
     position: absolute;
     bottom: 20px;
-    margin: 0 auto;
+    width: 100%;
+    max-width: var(--max-area-width);
+    box-sizing: border-box;
+}
+
+.textareaGroup {
     display: flex;
     gap: 20px;
-    max-width: var(--max-area-width)
 }
 
 .textareaField {
     composes: baseInput;
     padding: 16px 12px;
-    /*margin-bottom: 12px;*/
     border-radius: 16px;
     resize: none;
-    /*height: 50px;*/
-    /*max-height: 150px;*/
-    max-height: 56px;
     transition: border-color 0.3s ease;
-
-    display: flex;
-    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .inputField:focus,
