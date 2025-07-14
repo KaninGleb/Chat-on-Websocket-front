@@ -1,38 +1,61 @@
 import { io, Socket } from 'socket.io-client'
+import type { Message, User } from './chat-reducer.ts'
+
+const socket = 'https://chat-on-websocket-back.onrender.com'
+
+const EVENTS = {
+  INIT_MESSAGES: 'init-messages-published',
+  NEW_MESSAGE: 'new-message-sent',
+  USER_TYPING: 'user-typing',
+  USER_STOP_TYPING: 'user-stopped-typing',
+  DISCONNECT: 'disconnect',
+  CLIENT_NAME_SENT: 'client-name-sent',
+  CLIENT_MESSAGE_SENT: 'client-message-sent',
+  CLIENT_TYPED: 'client-typed',
+  CLIENT_STOPPED_TYPING: 'client-stopped-typing',
+} as const
 
 export const api = {
-  socket: null as null | Socket,
+  socket: null as Socket | null,
+
   createConnection() {
-    this.socket = io('https://chat-on-websocket-back.onrender.com')
+    this.socket = io(socket)
   },
+
   subscribe(
-    initMessagesHandler: (messages: any) => void,
-    newMessageSentHandler: (newMessage: any) => void,
-    userTypingHandler: (user: any) => void,
-    userStopTypingHandler: (user: any) => void,
+    initMessagesHandler: (messages: Message[]) => void,
+    newMessageSentHandler: (newMessage: Message) => void,
+    userTypingHandler: (user: User) => void,
+    userStopTypingHandler: (user: User) => void,
   ) {
-    this.socket?.on('init-messages-published', initMessagesHandler)
-    this.socket?.on('new-message-sent', newMessageSentHandler)
-    this.socket?.on('user-typing', userTypingHandler)
-    this.socket?.on('user-stopped-typing', userStopTypingHandler)
+    this.socket?.on(EVENTS.INIT_MESSAGES, initMessagesHandler)
+    this.socket?.on(EVENTS.NEW_MESSAGE, newMessageSentHandler)
+    this.socket?.on(EVENTS.USER_TYPING, userTypingHandler)
+    this.socket?.on(EVENTS.USER_STOP_TYPING, userStopTypingHandler)
   },
+
   onDisconnect(disconnectHandler: () => void) {
-    this.socket?.on('disconnect', disconnectHandler)
+    this.socket?.on(EVENTS.DISCONNECT, disconnectHandler)
   },
+
   destroyConnection() {
     this.socket?.disconnect()
     this.socket = null
   },
+
   sendName(name: string) {
-    this.socket?.emit('client-name-sent', name)
+    this.socket?.emit(EVENTS.CLIENT_NAME_SENT, name)
   },
+
   sendMessage(message: string) {
-    this.socket?.emit('client-message-sent', message)
+    this.socket?.emit(EVENTS.CLIENT_MESSAGE_SENT, message)
   },
+
   typeMessage() {
-    this.socket?.emit('client-typed')
+    this.socket?.emit(EVENTS.CLIENT_TYPED)
   },
+
   stopTyping() {
-    this.socket?.emit('client-stopped-typing')
+    this.socket?.emit(EVENTS.CLIENT_STOPPED_TYPING)
   },
 }
