@@ -10,7 +10,28 @@ function App() {
   const typingUsers = useSelector((state: AppStateType) => state.chat.typingUsers)
   const connectionStatus = useSelector((state: AppStateType) => state.chat.connectionStatus)
 
+  const [name, setName] = useState('')
+  const [chatUserName, setChatUserName] = useState<string>(() => localStorage.getItem('userName') || 'Anonymous')
+
+  const [isAutoScrollActive, setIsAutoScrollActive] = useState(true)
+  const [isTyping, setIsTyping] = useState(false)
+
+  const messagesAnchorRef = useRef<HTMLDivElement>(null)
+
   const dispatch = useDispatch<AppDispatch>()
+
+  const handleConfirmName = () => {
+    if (name.trim() === '') return
+    dispatch(sendClientName(name.trim()))
+    localStorage.setItem('userName', name)
+    setChatUserName(name)
+    setName('')
+  }
+
+  const handleSendMessage = (message: string) => {
+    dispatch(sendClientMessage(message))
+    setIsAutoScrollActive(true)
+  }
 
   useEffect(() => {
     dispatch(createConnection())
@@ -19,14 +40,6 @@ function App() {
       dispatch(destroyConnection())
     }
   }, [])
-
-  const [name, setName] = useState('')
-  const [chatUserName, setChatUserName] = useState<string>(() => localStorage.getItem('userName') || 'Anonymous')
-
-  const [isAutoScrollActive, setIsAutoScrollActive] = useState(true)
-  const [isTyping, setIsTyping] = useState(false)
-
-  const messagesAnchorRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (chatUserName && chatUserName !== 'Anonymous') {
@@ -43,19 +56,6 @@ function App() {
   useEffect(() => {
     setIsTyping(typingUsers.length > 0)
   }, [typingUsers])
-
-  const handleConfirmName = () => {
-    if (name.trim() === '') return
-    dispatch(sendClientName(name.trim()))
-    localStorage.setItem('userName', name)
-    setChatUserName(name)
-    setName('')
-  }
-
-  const handleSendMessage = (message: string) => {
-    dispatch(sendClientMessage(message))
-    setIsAutoScrollActive(true)
-  }
 
   return (
     <div className={s.appContainer}>
