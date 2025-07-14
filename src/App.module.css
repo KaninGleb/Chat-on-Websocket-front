@@ -23,50 +23,6 @@ body {
     background-color: #242424;
 }
 
-.messagesContainer {
-    border: 1px solid #444;
-    border-radius: 0 0 8px 8px;
-    padding: 12px 10px 4px 16px;
-    width: 400px;
-    height: 600px;
-    overflow-y: auto;
-    text-align: left;
-    margin-bottom: 20px;
-    background-color: #1f1f1f;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    scrollbar-width: thin;
-    scrollbar-color: #646cff #1f1f1f;
-}
-
-.messagesContainer::-webkit-scrollbar {
-    width: 8px;
-}
-
-.messagesContainer::-webkit-scrollbar-track {
-    background: #1f1f1f;
-    border-radius: 8px;
-}
-
-.messagesContainer::-webkit-scrollbar-thumb {
-    background-color: #646cff;
-    border-radius: 8px;
-    border: 2px solid #1f1f1f;
-}
-
-.messageItem {
-    padding: 12px 16px;
-    word-wrap: break-word;
-    border-bottom: 1px solid #eeeeee;
-    background-color: #262634;
-    border-radius: 8px;
-    margin-bottom: 12px;
-    transition: background-color 0.3s ease;
-}
-
-.messageItem b {
-    color: #646cff;
-}
-
 .baseInput {
     padding: 8px 12px;
     border-radius: 6px;
@@ -77,60 +33,31 @@ body {
     background-color: #2a2a2a;
 }
 
-.nameInputGroup {
+/* ----- Styles for chat header ----- */
+.headerInfo {
     display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
+    justify-content: space-between;
+    align-items: center;
+    color: #ddd;
+    font-size: 1rem;
+    font-weight: 500;
+    background-color: #2a2a2a;
+    border-radius: 12px 12px 0 0;
+    padding: 14px 20px;
+    border: 1px solid #3a3a3a;
+    border-bottom: none;
 }
 
-.inputField {
-    composes: baseInput;
-    width: 100%;
-    line-height: 1.5;
+.userName {
+    font-size: 0.95em;
 }
 
-.textareaGroup {
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
+.userName b {
+    color: #646cff;
+    font-weight: 600;
 }
 
-.textareaField {
-    composes: baseInput;
-    margin-bottom: 12px;
-    resize: vertical;
-    min-height: 22px;
-    max-height: 150px;
-    transition: border-color 0.3s ease;
-}
-
-.inputField:focus,
-.textareaField:focus {
-    outline: none;
-    border-color: #646cff;
-    box-shadow: 0 0 6px #646cff88;
-}
-
-
-
-/*.headerInfo {*/
-/*    display: flex;*/
-/*    justify-content: space-between;*/
-/*    align-items: center;*/
-/*    color: #ccc;*/
-/*    font-size: 1rem;*/
-/*    font-weight: 500;*/
-
-/*    border: 1px solid #444;*/
-/*    border-radius: 8px 8px 0 0;*/
-/*    padding: 12px 10px 12px 16px;*/
-/*}*/
-
-/*.userName b {*/
-/*    color: #646cff;*/
-/*}*/
-
-
+/* ----- Styles for messagesContainer ----- */
 .messagesContainer {
     border: 1px solid #3a3a3a;
     border-radius: 0 0 12px 12px;
@@ -224,29 +151,6 @@ body {
     text-align: right;
 }
 
-.headerInfo {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: #ddd;
-    font-size: 1rem;
-    font-weight: 500;
-    background-color: #2a2a2a;
-    border-radius: 12px 12px 0 0;
-    padding: 14px 20px;
-    border: 1px solid #3a3a3a;
-    border-bottom: none;
-}
-
-.userName {
-    font-size: 0.95em;
-}
-
-.userName b {
-    color: #646cff;
-    font-weight: 600;
-}
-
 .svgAppendix {
     position: absolute;
     bottom: -0.0625rem;
@@ -272,7 +176,42 @@ body {
     fill: #2a2a3a;
 }
 
+/* ----- Styles for nameInputGroup ----- */
+.nameInputGroup {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
 
+.inputField {
+    composes: baseInput;
+    width: 100%;
+    line-height: 1.5;
+}
+
+.textareaGroup {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.textareaField {
+    composes: baseInput;
+    margin-bottom: 12px;
+    resize: vertical;
+    min-height: 22px;
+    max-height: 150px;
+    transition: border-color 0.3s ease;
+}
+
+.inputField:focus,
+.textareaField:focus {
+    outline: none;
+    border-color: #646cff;
+    box-shadow: 0 0 6px #646cff88;
+}
+
+/* ----- Styles for buttons ----- */
 .button {
     border-radius: 8px;
     border: 1px solid transparent;
@@ -297,21 +236,4 @@ body {
 .button:focus-visible {
     outline: 4px auto -webkit-focus-ring-color;
     outline-offset: 2px;
-}
-
-.headerInfo {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: #ccc;
-    font-size: 1rem;
-    font-weight: 500;
-
-    border: 1px solid #444;
-    border-radius: 8px 8px 0 0;
-    padding: 12px 10px 12px 16px;
-}
-
-.userName b {
-    color: #646cff;
 }
