@@ -1,12 +1,11 @@
 import { useDispatch } from 'react-redux'
-import { type ChangeEvent, useState } from 'react'
+import { type ChangeEvent, type KeyboardEvent, useState } from 'react'
 import type { AppDispatch } from '../../store.ts'
 import { stopTypingMessage, typeMessage } from '../../chat-reducer.ts'
 import sendIcon from '../../assets/send-button-icon.svg'
 import s from './MessageInput.module.css'
 
 type MessageInputProps = {
-
   onSend: (msg: string) => void
 }
 
@@ -15,19 +14,29 @@ export const MessageInput = ({onSend }: MessageInputProps) => {
 
   const dispatch = useDispatch<AppDispatch>()
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const newMessage = e.currentTarget.value
     setMessage(newMessage)
 
-    if (newMessage.trim() !== '') {
+    if (/\S/.test(newMessage)) {
       dispatch(typeMessage())
     } else {
       dispatch(stopTypingMessage())
     }
   }
 
-  const handleKeyDown = () => {
-    dispatch(typeMessage())
+  const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter') {
+      if (e.shiftKey) return
+
+      e.preventDefault()
+
+      if (!e.ctrlKey || e.ctrlKey) {
+        handleSendClick()
+      }
+    } else if (e.key.length === 1) {
+      dispatch(typeMessage())
+    }
   }
 
   const handleSendClick = () => {
@@ -42,12 +51,13 @@ export const MessageInput = ({onSend }: MessageInputProps) => {
       <div className={s.inputContainer}>
         <div className={s.inputGroup}>
           <div className={s.inputWrapper}>
-            <input
+            <textarea
               className={s.inputMessage}
               value={message}
               onChange={handleChange}
               onKeyDown={handleKeyDown}
               placeholder='Message'
+              rows={1}
             />
             <svg width='9' height='20' className={`${s.ownAppendix} ${s.inputAppendix}`}>
               <g fill='none' fillRule='evenodd'>
