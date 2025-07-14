@@ -11,6 +11,7 @@ import {
 } from './chat-reducer.ts'
 import { ServerStatus, TypingUsersShowcase } from './components'
 import s from './App.module.css'
+import sendIcon from './assets/send-button-icon.svg'
 
 function App() {
   const messages = useSelector((state: AppStateType) => state.chat.messages)
@@ -135,26 +136,40 @@ function App() {
       <section className={s.inputSection}>
         <div className={s.inputContainer}>
           <div className={s.inputGroup}>
-            <input
-              className={s.inputMessage}
-              value={message}
-              onChange={(e) => {
-                const newMessage = e.currentTarget.value
-                setMessage(newMessage)
+            <div className={s.inputWrapper}>
+              <input
+                className={s.inputMessage}
+                value={message}
+                onChange={(e) => {
+                  const newMessage = e.currentTarget.value
+                  setMessage(newMessage)
 
-                if (newMessage.trim() !== '') {
+                  if (newMessage.trim() !== '') {
+                    dispatch(typeMessage())
+                  } else {
+                    dispatch(stopTypingMessage())
+                  }
+                }}
+                onKeyDown={() => {
                   dispatch(typeMessage())
-                } else {
-                  dispatch(stopTypingMessage())
-                }
-              }}
-              onKeyDown={() => {
-                dispatch(typeMessage())
-              }}
-              placeholder='Message'
-            />
+                }}
+                placeholder='Message'
+              />
+              <svg width='9' height='20' className={`${s.ownAppendix} ${s.inputAppendix}`}>
+                <g fill='none' fillRule='evenodd'>
+                  <path
+                    d='M3 17h6V0c-.193 2.84-.876 5.767-2.05 8.782-.904 2.325-2.446 4.485-4.625 6.48A1 1 0 003 17z'
+                    fill='#000'
+                  />
+                  <path
+                    d='M3 17h6V0c-.193 2.84-.876 5.767-2.05 8.782-.904 2.325-2.446 4.485-4.625 6.48A1 1 0 003 17z'
+                    fill='FFF'
+                  />
+                </g>
+              </svg>
+            </div>
             <button
-              className={s.button}
+              className={s.sendButton}
               onClick={() => {
                 dispatch(sendClientMessage(message))
                 dispatch(stopTypingMessage())
@@ -162,7 +177,7 @@ function App() {
                 setMessage('')
               }}
             >
-              {'-->'}
+              {<img className={s.sendButtonIcon} src={sendIcon} alt='Sent icon' />}
             </button>
           </div>
         </div>
