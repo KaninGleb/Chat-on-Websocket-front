@@ -18,6 +18,7 @@
 .inputGroup {
     display: flex;
     gap: 8px;
+    align-items: flex-end;
 }
 
 .inputGroupActive {
@@ -34,13 +35,14 @@
     border: none;
     border-radius: 16px 16px 0 16px;
     resize: none;
+    overflow: hidden;
     transition: border-color 0.3s ease;
     width: 100%;
     box-sizing: border-box;
     position: relative;
     line-height: 1.4;
     min-height: 56px;
-    overflow: auto;
+    max-height: 120px;
 }
 
 .inputField:focus,

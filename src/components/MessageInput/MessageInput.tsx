@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux'
-import { type ChangeEvent, type KeyboardEvent, useState } from 'react'
+import { type ChangeEvent, type KeyboardEvent, useRef, useState } from 'react'
 import type { AppDispatch } from '../../store.ts'
 import { stopTypingMessage, typeMessage } from '../../chat-reducer.ts'
 import sendIcon from '../../assets/send-button-icon.svg'
@@ -12,12 +12,21 @@ type MessageInputProps = {
 
 export const MessageInput = ({ onSend, isScrolling }: MessageInputProps) => {
   const [message, setMessage] = useState('')
-
   const dispatch = useDispatch<AppDispatch>()
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
+
+  const resizeTextarea = () => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto'
+      textareaRef.current.style.height = textareaRef.current.scrollHeight + 'px'
+    }
+  }
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const newMessage = e.currentTarget.value
     setMessage(newMessage)
+
+    resizeTextarea()
 
     if (/\S/.test(newMessage)) {
       dispatch(typeMessage())
@@ -42,8 +51,11 @@ export const MessageInput = ({ onSend, isScrolling }: MessageInputProps) => {
 
   const handleSendClick = () => {
     if (message.trim() === '') return
-    onSend(message)
+    onSend(message.trim())
     dispatch(stopTypingMessage())
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto'
+    }
     setMessage('')
   }
 
@@ -53,6 +65,7 @@ export const MessageInput = ({ onSend, isScrolling }: MessageInputProps) => {
         <div className={s.inputGroup}>
           <div className={s.inputWrapper}>
             <textarea
+              ref={textareaRef}
               className={s.inputMessage}
               value={message}
               onChange={handleChange}
