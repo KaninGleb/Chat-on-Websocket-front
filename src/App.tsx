@@ -126,38 +126,41 @@ function App() {
         </button>
       </div>
 
-      <div className={s.textareaGroup}>
-        <textarea
-          className={s.textareaField}
-          value={message}
-          onChange={(e) => {
-            const newMessage = e.currentTarget.value
-            setMessage(newMessage)
-
-            if (newMessage.trim() !== '') {
-              dispatch(typeMessage())
-            } else {
-              dispatch(stopTypingMessage())
-            }
-          }}
-          onKeyDown={() => {
-            dispatch(typeMessage())
-          }}
-          placeholder='Type your message'
-          rows={4}
-        />
-        <button
-          className={s.button}
-          onClick={() => {
-            dispatch(sendClientMessage(message))
-            dispatch(stopTypingMessage())
-            setIsAutoScrollActive(true)
-            setMessage('')
-          }}
-        >
-          Send the message
-        </button>
-      </div>
+      <section className={s.inputSection}>
+        <div className={s.textareaContainer}>
+          <div className={s.textareaGroup}>
+            <input
+              className={s.textareaField}
+              value={message}
+              onChange={(e) => {
+                const newMessage = e.currentTarget.value
+                setMessage(newMessage)
+    
+                if (newMessage.trim() !== '') {
+                  dispatch(typeMessage())
+                } else {
+                  dispatch(stopTypingMessage())
+                }
+              }}
+              onKeyDown={() => {
+                dispatch(typeMessage())
+              }}
+              placeholder='Message'
+            />
+            <button
+              className={s.button}
+              onClick={() => {
+                dispatch(sendClientMessage(message))
+                dispatch(stopTypingMessage())
+                setIsAutoScrollActive(true)
+                setMessage('')
+              }}
+            >
+              {'-->'}
+            </button>
+          </div>
+        </div>
+      </section>
     </>
   )
 }
