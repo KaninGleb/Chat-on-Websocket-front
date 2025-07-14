@@ -7,9 +7,10 @@ import s from './MessageInput.module.css'
 
 type MessageInputProps = {
   onSend: (msg: string) => void
+  isScrolling: boolean
 }
 
-export const MessageInput = ({onSend }: MessageInputProps) => {
+export const MessageInput = ({ onSend, isScrolling }: MessageInputProps) => {
   const [message, setMessage] = useState('')
 
   const dispatch = useDispatch<AppDispatch>()
@@ -47,7 +48,7 @@ export const MessageInput = ({onSend }: MessageInputProps) => {
   }
 
   return (
-    <section className={s.inputSection}>
+    <section className={`${s.inputSection} ${!isScrolling ? s.onScroll : ''}`}>
       <div className={s.inputContainer}>
         <div className={s.inputGroup}>
           <div className={s.inputWrapper}>

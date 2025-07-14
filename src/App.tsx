@@ -80,7 +80,7 @@ function App() {
       {/*  </button>*/}
       {/*</div>*/}
 
-      <MessageInput onSend={handleSendMessage} />
+      <MessageInput onSend={handleSendMessage} isScrolling={isAutoScrollActive} />
     </div>
   )
 }
