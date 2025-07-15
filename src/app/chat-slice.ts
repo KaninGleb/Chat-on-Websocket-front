@@ -7,6 +7,7 @@ type ChatState = {
   typingUsers: User[]
   connectionStatus: ServerStatusType
   readyToSendMessagesStatus: boolean
+  usersCount: number
 }
 
 export const chatSlice = createAppSlice({
@@ -16,12 +17,14 @@ export const chatSlice = createAppSlice({
     typingUsers: [],
     connectionStatus: 'offline' as ServerStatusType,
     readyToSendMessagesStatus: false,
+    usersCount: 0,
   } as ChatState,
   selectors: {
     selectMessages: (s) => s.messages,
     selectTypingUsers: (s) => s.typingUsers,
     selectConnectionStatus: (s) => s.connectionStatus,
     selectReadyToSendMessagesStatus: (s) => s.readyToSendMessagesStatus,
+    selectUsersCount: (s) => s.usersCount,
   },
   reducers: (create) => ({
     messagesReceived: create.reducer<Message[]>((state, action) => {
@@ -56,6 +59,9 @@ export const chatSlice = createAppSlice({
     setReadyToSendMessages: create.reducer<boolean>((state, action) => {
       state.readyToSendMessagesStatus = action.payload
     }),
+    usersCountUpdated: create.reducer<number>((state, action) => {
+      state.usersCount = action.payload
+    }),
 
     createConnection: create.asyncThunk(async (_, { dispatch }) => {
       api.createConnection()
@@ -72,12 +78,14 @@ export const chatSlice = createAppSlice({
         (newMessage: Message) => dispatch(newMessageReceived(newMessage)),
         (user: User) => dispatch(typingUserAdded(user)),
         (user: User) => dispatch(typingUserRemoved(user)),
+        (count: number) => dispatch(usersCountUpdated(count)),
       )
 
       api.onDisconnect(() => {
         api.stopTyping()
         dispatch(setConnectionStatus('offline'))
         dispatch(setReadyToSendMessages(false))
+        dispatch(usersCountUpdated(0))
       })
     }),
     sendClientName: create.asyncThunk(async (name: string) => {
@@ -95,6 +103,7 @@ export const chatSlice = createAppSlice({
     destroyConnection: create.asyncThunk(async (_, { dispatch }) => {
       api.destroyConnection()
       dispatch(setConnectionStatus('offline'))
+      dispatch(usersCountUpdated(0))
     }),
   }),
 })
@@ -106,6 +115,7 @@ export const {
   typingUserRemoved,
   setConnectionStatus,
   setReadyToSendMessages,
+  usersCountUpdated,
   createConnection,
   sendClientName,
   typeMessage,
@@ -114,7 +124,12 @@ export const {
   destroyConnection,
 } = chatSlice.actions
 
-export const { selectMessages, selectTypingUsers, selectConnectionStatus, selectReadyToSendMessagesStatus } =
-  chatSlice.selectors
+export const {
+  selectMessages,
+  selectTypingUsers,
+  selectConnectionStatus,
+  selectReadyToSendMessagesStatus,
+  selectUsersCount,
+} = chatSlice.selectors
 
 export const chatReducer = chatSlice.reducer

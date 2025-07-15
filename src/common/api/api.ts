@@ -8,6 +8,7 @@ const EVENTS = {
   NEW_MESSAGE: 'new-message-sent',
   USER_TYPING: 'user-typing',
   USER_STOP_TYPING: 'user-stopped-typing',
+  USERS_COUNT_UPDATING: 'users-count-updated',
   DISCONNECT: 'disconnect',
   CLIENT_TIMEZONE_SENT: 'client-timezone-sent',
   CLIENT_NAME_SENT: 'client-name-sent',
@@ -29,20 +30,24 @@ export const api = {
     })
   },
 
+  sendTimeZone(timeZone: string) {
+    this.socket?.emit(EVENTS.CLIENT_TIMEZONE_SENT, timeZone)
+  },
+
   subscribe(
     initMessagesHandler: (messages: Message[]) => void,
     newMessageSentHandler: (newMessage: Message) => void,
     userTypingHandler: (user: User) => void,
     userStopTypingHandler: (user: User) => void,
+    usersCountHandler: (count: number) => void,
   ) {
     this.socket?.on(EVENTS.INIT_MESSAGES, initMessagesHandler)
     this.socket?.on(EVENTS.NEW_MESSAGE, newMessageSentHandler)
     this.socket?.on(EVENTS.USER_TYPING, userTypingHandler)
     this.socket?.on(EVENTS.USER_STOP_TYPING, userStopTypingHandler)
-  },
-
-  sendTimeZone(timeZone: string) {
-    this.socket?.emit(EVENTS.CLIENT_TIMEZONE_SENT, timeZone)
+    if (usersCountHandler) {
+      this.socket?.on(EVENTS.USERS_COUNT_UPDATING, usersCountHandler)
+    }
   },
 
   unsubscribe() {
@@ -50,6 +55,7 @@ export const api = {
     this.socket?.off(EVENTS.NEW_MESSAGE)
     this.socket?.off(EVENTS.USER_TYPING)
     this.socket?.off(EVENTS.USER_STOP_TYPING)
+    this.socket?.off(EVENTS.USERS_COUNT_UPDATING)
   },
 
   onDisconnect(disconnectHandler: () => void) {
