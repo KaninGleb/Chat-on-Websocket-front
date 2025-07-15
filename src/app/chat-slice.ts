@@ -9,16 +9,14 @@ type ChatState = {
   readyToSendMessagesStatus: boolean
 }
 
-const initialState: ChatState = {
-  messages: [],
-  typingUsers: [],
-  connectionStatus: 'offline' as ServerStatusType,
-  readyToSendMessagesStatus: false,
-}
-
 export const chatSlice = createAppSlice({
   name: 'chatSlice',
-  initialState,
+  initialState: {
+    messages: [],
+    typingUsers: [],
+    connectionStatus: 'offline' as ServerStatusType,
+    readyToSendMessagesStatus: false,
+  } as ChatState,
   selectors: {
     selectMessages: (s) => s.messages,
     selectTypingUsers: (s) => s.typingUsers,
