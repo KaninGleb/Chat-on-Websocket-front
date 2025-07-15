@@ -9,7 +9,7 @@ import {
 import { MessageItem } from './MessageItem/MessageItem.tsx'
 import { TypingUsersShowcase } from '../TypingUsersShowcase/TypingUsersShowcase.tsx'
 import s from './MessagesList.module.css'
-import { useSelector } from 'react-redux'
+import { useAppSelector } from '../../hooks'
 import { selectMessages, selectTypingUsers } from '../../../app/chat-slice.ts'
 
 type MessagesListPropsType = {
@@ -19,8 +19,8 @@ type MessagesListPropsType = {
 }
 
 export const MessagesList = memo(({ userName, isAutoScrollActive, setIsAutoScrollActive }: MessagesListPropsType) => {
-  const messages = useSelector(selectMessages)
-  const typingUsers = useSelector(selectTypingUsers)
+  const messages = useAppSelector(selectMessages)
+  const typingUsers = useAppSelector(selectTypingUsers)
   const lastScrollTopRef = useRef(0)
   const isTyping = typingUsers.length > 0
 

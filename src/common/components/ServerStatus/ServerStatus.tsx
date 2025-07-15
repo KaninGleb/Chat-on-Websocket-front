@@ -1,11 +1,11 @@
-import { useSelector } from 'react-redux'
+import { useAppSelector } from '../../hooks'
 import { selectConnectionStatus, selectReadyToSendMessagesStatus, selectUsersCount } from '../../../app/chat-slice.ts'
 import s from './ServerStatus.module.css'
 
 export const ServerStatus = () => {
-  const connectionStatus = useSelector(selectConnectionStatus)
-  const readyToSendMessages = useSelector(selectReadyToSendMessagesStatus)
-  const usersCount = useSelector(selectUsersCount)
+  const connectionStatus = useAppSelector(selectConnectionStatus)
+  const readyToSendMessages = useAppSelector(selectReadyToSendMessagesStatus)
+  const usersCount = useAppSelector(selectUsersCount)
 
   const statusMap = {
     online: { color: '#4caf50', text: 'Live' },

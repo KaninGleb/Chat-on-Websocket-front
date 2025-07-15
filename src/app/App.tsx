@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
-import type { AppDispatch } from './store.ts'
+import { useAppDispatch } from '../common/hooks'
 import { createConnection, destroyConnection, sendClientMessage, sendClientName } from './chat-slice.ts'
 import { Header, MessageInput, MessagesList } from '../common/components'
 import s from './App.module.css'
@@ -10,7 +9,7 @@ function App() {
 
   const [isAutoScrollActive, setIsAutoScrollActive] = useState(true)
 
-  const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useAppDispatch()
 
   const handleSendMessage = (message: string) => {
     dispatch(sendClientMessage(message))

@@ -1,9 +1,9 @@
-import { useSelector } from 'react-redux'
-import s from './TypingUsersShowcase.module.css'
+import { useAppSelector } from '../../hooks'
 import { selectTypingUsers } from '../../../app/chat-slice.ts'
+import s from './TypingUsersShowcase.module.css'
 
 export const TypingUsersShowcase = () => {
-  const typingUsers = useSelector(selectTypingUsers)
+  const typingUsers = useAppSelector(selectTypingUsers)
   const count = typingUsers.length
 
   if (count === 0) return null

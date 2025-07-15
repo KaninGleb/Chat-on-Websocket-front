@@ -2,8 +2,7 @@ import { ServerStatus } from '../ServerStatus/ServerStatus.tsx'
 import penIcon from '../../../assets/pen-edit-icon.svg'
 import { type KeyboardEvent, useState } from 'react'
 import { sendClientName } from '../../../app/chat-slice.ts'
-import { useDispatch } from 'react-redux'
-import type { AppDispatch } from '../../../app/store.ts'
+import { useAppDispatch } from '../../hooks'
 import s from './Header.module.css'
 
 type HeaderType = {
@@ -16,7 +15,7 @@ export const Header = ({ userName, setChatUserName }: HeaderType) => {
   const [isEditing, setIsEditing] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
 
-  const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useAppDispatch()
 
   const handleConfirmName = () => {
     const trimmed = name.trim()
