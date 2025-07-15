@@ -1,15 +1,15 @@
-import { type ChangeEvent, type KeyboardEvent, useRef, useState } from 'react'
+import { type ChangeEvent, type Dispatch, type KeyboardEvent, type SetStateAction, useRef, useState } from 'react'
 import { useAppDispatch } from '../../hooks'
-import { stopTypingMessage, typeMessage } from '../../../app/chat-slice.ts'
+import { sendClientMessage, stopTypingMessage, typeMessage } from '../../../app/chat-slice.ts'
 import sendIcon from '../../../assets/send-button-icon.svg'
 import s from './MessageInput.module.css'
 
 type MessageInputProps = {
-  onSend: (msg: string) => void
+  setIsAutoScrollActive: Dispatch<SetStateAction<boolean>>
   isScrolling: boolean
 }
 
-export const MessageInput = ({ onSend, isScrolling }: MessageInputProps) => {
+export const MessageInput = ({ setIsAutoScrollActive, isScrolling }: MessageInputProps) => {
   const [message, setMessage] = useState('')
   const dispatch = useAppDispatch()
   const textareaRef = useRef<HTMLTextAreaElement>(null)
@@ -34,6 +34,11 @@ export const MessageInput = ({ onSend, isScrolling }: MessageInputProps) => {
     }
   }
 
+  const handleSendMessage = (message: string) => {
+    dispatch(sendClientMessage(message))
+    setIsAutoScrollActive(true)
+  }
+
   const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter') {
       if (e.shiftKey) return
@@ -50,7 +55,7 @@ export const MessageInput = ({ onSend, isScrolling }: MessageInputProps) => {
 
   const handleSendClick = () => {
     if (message.trim() === '') return
-    onSend(message.trim())
+    handleSendMessage(message.trim())
     dispatch(stopTypingMessage())
     if (textareaRef.current) {
       textareaRef.current.style.height = 'auto'

@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import { useAppDispatch, useChatConnection, useSendClientName } from '../common/hooks'
-import { sendClientMessage } from './chat-slice.ts'
+import { useChatConnection, useSendClientName } from '../common/hooks'
 import { Header, MessageInput, MessagesList } from '../common/components'
 import s from './App.module.css'
 
@@ -11,24 +10,15 @@ function App() {
   useChatConnection()
   useSendClientName(chatUserName)
 
-  const dispatch = useAppDispatch()
-
-  const handleSendMessage = (message: string) => {
-    dispatch(sendClientMessage(message))
-    setIsAutoScrollActive(true)
-  }
-
   return (
     <div className={s.appContainer}>
       <Header userName={chatUserName} setChatUserName={setChatUserName} />
-
       <MessagesList
         userName={chatUserName}
         isAutoScrollActive={isAutoScrollActive}
         setIsAutoScrollActive={setIsAutoScrollActive}
       />
-
-      <MessageInput onSend={handleSendMessage} isScrolling={isAutoScrollActive} />
+      <MessageInput isScrolling={isAutoScrollActive} setIsAutoScrollActive={setIsAutoScrollActive} />
     </div>
   )
 }
