@@ -4,6 +4,12 @@
     gap: 8px;
 }
 
+.status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
 .content {
     display: inline-block;
     width: 12px;
@@ -28,4 +34,10 @@
         transform: scale(1);
         opacity: 0.6;
     }
+}
+
+.usersCount {
+    margin-bottom: 2px;
+    font-size: 0.875rem;
+    color: #aaa;
 }
