@@ -72,6 +72,7 @@ export const chatSlice = createAppSlice({
       )
 
       api.onDisconnect(() => {
+        api.stopTyping()
         dispatch(setConnectionStatus('offline'))
         dispatch(setReadyToSendMessages(false))
       })

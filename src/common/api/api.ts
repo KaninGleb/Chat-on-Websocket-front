@@ -52,6 +52,7 @@ export const api = {
   },
 
   destroyConnection() {
+    this.stopTyping()
     this.unsubscribe()
     this.socket?.disconnect()
     this.socket = null
