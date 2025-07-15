@@ -18,12 +18,14 @@ type ChatState = {
   messages: Message[]
   typingUsers: User[]
   connectionStatus: ServerStatusType
+  readyToSendMessages: boolean
 }
 
 const initialState = {
   messages: [],
   typingUsers: [],
   connectionStatus: 'offline' as ServerStatusType,
+  readyToSendMessages: false,
 }
 
 export const chatReducer = (state: ChatState = initialState, action: Actions) => {
@@ -61,6 +63,10 @@ export const chatReducer = (state: ChatState = initialState, action: Actions) =>
       return { ...state, connectionStatus: action.status }
     }
 
+    case 'READY-TO-SEND-MESSAGES': {
+      return { ...state, readyToSendMessages: action.isReady }
+    }
+
     default:
       return state
   }
@@ -91,18 +97,29 @@ export const setConnectionStatus = (status: ServerStatusType) => ({
   status
 }) as const
 
+export const setReadyToSendMessages = (isReady: boolean) => ({
+  type: 'READY-TO-SEND-MESSAGES',
+  isReady
+}) as const
+
 export const createConnection = () => (dispatch: Dispatch<Actions>) => {
   api.createConnection()
   dispatch(setConnectionStatus('online'))
 
   api.subscribe(
-    (messages: Message[]) => dispatch(messagesReceived(messages)),
+    (messages: Message[]) => {
+      dispatch(messagesReceived(messages))
+      dispatch(setReadyToSendMessages(true))
+    },
     (newMessage: Message) => dispatch(newMessageReceived(newMessage)),
     (user: User) => dispatch(typingUserAdded(user)),
     (user: User) => dispatch(typingUserRemoved(user)),
   )
 
-  api.onDisconnect(() => dispatch(setConnectionStatus('offline')))
+  api.onDisconnect(() => {
+    dispatch(setConnectionStatus('offline'))
+    dispatch(setReadyToSendMessages(false))
+  })
 }
 
 export const sendClientName = (name: string) => () => {
@@ -131,6 +148,7 @@ type NewMessageReceivedAT = ReturnType<typeof newMessageReceived>
 type TypingUserAddedAT = ReturnType<typeof typingUserAdded>
 type TypingUserRemovedAT = ReturnType<typeof typingUserRemoved>
 type SetConnectionStatusAT = ReturnType<typeof setConnectionStatus>
+type SetReadyToSendMessagesAT = ReturnType<typeof setReadyToSendMessages>
 
 type Actions =
   | MessagesReceivedAT
@@ -138,3 +156,4 @@ type Actions =
   | TypingUserAddedAT
   | TypingUserRemovedAT
   | SetConnectionStatusAT
+  | SetReadyToSendMessagesAT
