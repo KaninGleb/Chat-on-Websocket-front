@@ -6,18 +6,30 @@ export const ServerStatus = () => {
   const connectionStatus = useSelector(selectConnectionStatus)
   const readyToSendMessages = useSelector(selectReadyToSendMessagesStatus)
 
-  const isOnline = connectionStatus && readyToSendMessages
-
   const statusMap = {
     online: { color: '#4caf50', text: 'Live' },
     offline: { color: '#f44336', text: 'Offline' },
+    connecting: { color: '#ff9800', text: 'Connecting...' },
   }
 
-  const { color, text } = isOnline ? statusMap.online : statusMap.offline
+  let statusKey: keyof typeof statusMap
+
+  if (connectionStatus === 'offline') {
+    statusKey = 'offline'
+  } else if (!readyToSendMessages) {
+    statusKey = 'connecting'
+  } else {
+    statusKey = 'online'
+  }
+
+  const { color, text } = statusMap[statusKey] || statusMap.offline
 
   return (
     <div className={s.container} style={{ color }}>
-      <span className={s.content} style={{ backgroundColor: color }} />
+      <span
+        className={`${s.content} ${statusKey === 'connecting' ? s.pulsing : ''}`}
+        style={{ backgroundColor: color }}
+      />
       <span>{text}</span>
     </div>
   )
