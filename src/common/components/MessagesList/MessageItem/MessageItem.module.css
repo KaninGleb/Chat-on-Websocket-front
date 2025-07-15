@@ -45,20 +45,19 @@
 /* Styles for other people's messages (left) */
 .messageItem.other {
     align-self: flex-start;
-    background-color: #2a2a3a;
-    border-radius: 0.9375rem 0.9375rem 0.9375rem 0;
+    background-color: #2d3045;
+    border-radius: 1rem 1rem 1rem 0;
     margin-right: auto;
-    border-right: 2px solid #444;
-    margin-left: 8px;
+    border-right: 3px solid #4a4f73;
+    margin-left: 10px;
 }
 
-.messageTime {
-    white-space: nowrap;
-    font-size: .75rem;
-    color: #888;
-    margin-top: 4px;
-    margin-left: .4375rem;
-    text-align: right;
+.messageItem.own .svgAppendix path {
+    fill: #3a3a4a;
+}
+
+.messageItem.other .svgAppendix path {
+    fill: #2d3045;
 }
 
 .svgAppendix {
@@ -78,10 +77,31 @@
     left: -8px;
 }
 
-.messageItem.own .svgAppendix path {
-    fill: #3a3a4a;
+.messageTextWrapper {
+    display: inline-block;
+    width: 100%;
+    position: relative;
 }
 
-.messageItem.other .svgAppendix path {
-    fill: #2a2a3a;
+.singleLine .messageTime {
+    display: inline;
+    margin-left: 8px;
+    margin-top: 0;
+}
+
+.messageContent {
+    display: inline;
+    line-height: 1.4;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.messageTime {
+    font-size: .75rem;
+    color: #888;
+    margin-left: 8px;
+    margin-top: 4px;
+    text-align: right;
+    white-space: nowrap;
+    display: block;
 }
