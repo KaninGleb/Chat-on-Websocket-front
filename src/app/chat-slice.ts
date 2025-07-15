@@ -74,79 +74,6 @@ export const { selectMessages, selectTypingUsers, selectConnectionStatus, select
   chatSlice.selectors
 export const chatReducer = chatSlice.reducer
 
-// export const _messagesReceived = (messages: Message[]) => ({
-//   type: 'MESSAGES-RECEIVED',
-//   messages
-// }) as const
-
-// export const _newMessageReceived = (newMessage: Message) => ({
-//   type: 'NEW-MESSAGE-RECEIVED',
-//   newMessage
-// }) as const
-
-// export const _typingUserAdded = (user: User) => ({
-//   type: 'TYPING-USER-ADDED',
-//   user
-// }) as const
-
-// export const _typingUserRemoved = (user: User) => ({
-//   type: 'TYPING-USER-REMOVED',
-//   user
-// }) as const
-
-// export const _setConnectionStatus = (status: ServerStatusType) => ({
-//   type: 'CONNECTION-STATUS-UPDATED',
-//   status
-// }) as const
-
-// export const _setReadyToSendMessages = (isReady: boolean) => ({
-//   type: 'READY-TO-SEND-MESSAGES',
-//   isReady
-// }) as const
-
-// export const _chatReducer = (state: ChatState = initialState, action: Actions) => {
-//   switch (action.type) {
-//     case 'MESSAGES-RECEIVED': {
-//       return { ...state, messages: action.messages }
-//     }
-//
-//     case 'NEW-MESSAGE-RECEIVED': {
-//       if (state.messages.some((m) => m.id === action.newMessage.id)) {
-//         return state
-//       }
-//       return {
-//         ...state,
-//         messages: [...state.messages, action.newMessage],
-//         typingUsers: state.typingUsers.filter((u) => u.id !== action.newMessage.user.id),
-//       }
-//     }
-//
-//     case 'TYPING-USER-ADDED': {
-//       return {
-//         ...state,
-//         typingUsers: [...state.typingUsers.filter((u) => u.id !== action.user.id), action.user],
-//       }
-//     }
-//
-//     case 'TYPING-USER-REMOVED': {
-//       return {
-//         ...state,
-//         typingUsers: state.typingUsers.filter((u) => u.id !== action.user.id),
-//       }
-//     }
-//
-//     case 'CONNECTION-STATUS-UPDATED': {
-//       return { ...state, connectionStatus: action.status }
-//     }
-//
-//     case 'READY-TO-SEND-MESSAGES': {
-//       return { ...state, readyToSendMessages: action.isReady }
-//     }
-//
-//     default:
-//       return state
-//   }
-// }
 
 export const createConnection = () => (dispatch: Dispatch<Actions>) => {
   api.createConnection()
@@ -189,17 +116,3 @@ export const destroyConnection = () => (dispatch: Dispatch<Actions>) => {
   dispatch(setConnectionStatus('offline'))
 }
 
-type MessagesReceivedAT = ReturnType<typeof messagesReceived>
-type NewMessageReceivedAT = ReturnType<typeof newMessageReceived>
-type TypingUserAddedAT = ReturnType<typeof typingUserAdded>
-type TypingUserRemovedAT = ReturnType<typeof typingUserRemoved>
-type SetConnectionStatusAT = ReturnType<typeof setConnectionStatus>
-type SetReadyToSendMessagesAT = ReturnType<typeof setReadyToSendMessages>
-
-type Actions =
-  | MessagesReceivedAT
-  | NewMessageReceivedAT
-  | TypingUserAddedAT
-  | TypingUserRemovedAT
-  | SetConnectionStatusAT
-  | SetReadyToSendMessagesAT
