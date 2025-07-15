@@ -1,5 +1,5 @@
 import { io, Socket } from 'socket.io-client'
-import type { Message, User } from '../../app/chat-reducer.ts'
+import type { Message, User } from '../types'
 
 const socket = 'https://chat-on-websocket-back.onrender.com'
 
