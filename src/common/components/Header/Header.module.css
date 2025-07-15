@@ -23,9 +23,93 @@
 
 .user {
     font-size: 0.95em;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .userName {
     color: #8c93ff;
     font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.editIcon {
+    width: 14px;
+    height: 14px;
+    opacity: 0.7;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    display: inline-block;
+}
+
+.userName:hover {
+    color: #aab0ff;
+}
+
+.userName:hover .editIcon {
+    opacity: 1;
+}
+
+.inputWrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+}
+
+.inputWrapper input {
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: 1px solid #555;
+    background-color: #1e1e1e;
+    color: #ddd;
+    font-size: 0.95rem;
+    max-width: 160px;
+    height: 26px;
+    line-height: 1;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.userName,
+.inputWrapper {
+    height: 28px;
+    line-height: 28px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.inputWrapper input:focus {
+    border-color: #8c93ff;
+}
+
+.inputError {
+    border-color: #ff4d4f;
+    background-color: #2b1f1f;
+    color: #fff;
+}
+
+.lengthMsg {
+    font-size: 0.75rem;
+    color: #999;
+    min-width: 45px;
+}
+
+.lengthMsg.errorMsg {
+    color: #ff4d4f;
+}
+
+.errorText {
+    color: #ff4d4f;
+    font-size: 0.75rem;
+    position: absolute;
+    top: 18px;
+    left: 0;
+    white-space: nowrap;
+    margin-top: 2px;
+    z-index: 1;
 }

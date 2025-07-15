@@ -6,20 +6,11 @@ import { Header, MessageInput, MessagesList } from '../common/components'
 import s from './App.module.css'
 
 function App() {
-  const [name, setName] = useState('')
   const [chatUserName, setChatUserName] = useState<string>(() => localStorage.getItem('userName') || 'Anonymous')
 
   const [isAutoScrollActive, setIsAutoScrollActive] = useState(true)
 
   const dispatch = useDispatch<AppDispatch>()
-
-  const handleConfirmName = () => {
-    if (name.trim() === '') return
-    dispatch(sendClientName(name.trim()))
-    localStorage.setItem('userName', name)
-    setChatUserName(name)
-    setName('')
-  }
 
   const handleSendMessage = (message: string) => {
     dispatch(sendClientMessage(message))
@@ -42,7 +33,7 @@ function App() {
 
   return (
     <div className={s.appContainer}>
-      <Header userName={chatUserName} />
+      <Header userName={chatUserName} setChatUserName={setChatUserName}/>
 
       <MessagesList
         userName={chatUserName}
