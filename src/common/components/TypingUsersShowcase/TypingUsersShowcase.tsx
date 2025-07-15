@@ -6,32 +6,36 @@ export const TypingUsersShowcase = () => {
   const typingUsers = useSelector(selectTypingUsers)
   const count = typingUsers.length
 
-  switch (count) {
-    case 0:
-      return null
+  if (count === 0) return null
 
+  let typingMessage = ''
+
+  switch (count) {
     case 1:
-      return <div className={s.typingIndicator}>{typingUsers[0].name} is typing</div>
+      typingMessage = `${typingUsers[0].name} is typing`
+      break
 
     case 2:
-      return (
-        <div className={s.typingIndicator}>
-          {typingUsers[0].name} and {typingUsers[1].name} are typing
-        </div>
-      )
+      typingMessage = `${typingUsers[0].name} and ${typingUsers[1].name} are typing`
+      break
 
     case 3:
-      return (
-        <div className={s.typingIndicator}>
-          {typingUsers[0].name}, {typingUsers[1].name} and {typingUsers[2].name} are typing
-        </div>
-      )
+      typingMessage = `${typingUsers[0].name}, ${typingUsers[1].name} and ${typingUsers[2].name} are typing`
+      break
 
     default:
-      return (
-        <div className={s.typingIndicator}>
-          {typingUsers[0].name} and {count - 1} others are typing
-        </div>
-      )
+      typingMessage = `${typingUsers[0].name} and ${count - 1} others are typing`
+      break
   }
+
+  return (
+    <div className={s.typingIndicator}>
+      {typingMessage}
+      <span className={s.dots}>
+        <span>.</span>
+        <span>.</span>
+        <span>.</span>
+      </span>
+    </div>
+  )
 }
