@@ -7,7 +7,7 @@ export type Message = {
   id: string
   message: string
   user: User
-  time?: string
+  createdAt: string
 }
 
 export type ServerStatusType = 'online' | 'offline'

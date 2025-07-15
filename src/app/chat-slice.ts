@@ -61,6 +61,9 @@ export const chatSlice = createAppSlice({
       api.createConnection()
       dispatch(setConnectionStatus('online'))
 
+      const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
+      api.sendTimeZone(timeZone)
+
       api.subscribe(
         (messages: Message[]) => {
           dispatch(messagesReceived(messages))

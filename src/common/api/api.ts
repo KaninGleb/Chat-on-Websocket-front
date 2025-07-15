@@ -9,6 +9,7 @@ const EVENTS = {
   USER_TYPING: 'user-typing',
   USER_STOP_TYPING: 'user-stopped-typing',
   DISCONNECT: 'disconnect',
+  CLIENT_TIMEZONE_SENT: 'client-timezone-sent',
   CLIENT_NAME_SENT: 'client-name-sent',
   CLIENT_MESSAGE_SENT: 'client-message-sent',
   CLIENT_TYPED: 'client-typed',
@@ -38,6 +39,10 @@ export const api = {
     this.socket?.on(EVENTS.NEW_MESSAGE, newMessageSentHandler)
     this.socket?.on(EVENTS.USER_TYPING, userTypingHandler)
     this.socket?.on(EVENTS.USER_STOP_TYPING, userStopTypingHandler)
+  },
+
+  sendTimeZone(timeZone: string) {
+    this.socket?.emit(EVENTS.CLIENT_TIMEZONE_SENT, timeZone)
   },
 
   unsubscribe() {

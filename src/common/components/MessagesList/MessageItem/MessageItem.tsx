@@ -27,7 +27,7 @@ export const MessageItem = ({ currentName, message }: MessageItemPropsType) => (
     <b>{message.user.name === currentName ? '' : message.user.name}</b>
     {message.message}
     <div className={s.messageTime}>
-      {new Date(message.time || Date.now()).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+      {message.createdAt || new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
     </div>
   </div>
 )
