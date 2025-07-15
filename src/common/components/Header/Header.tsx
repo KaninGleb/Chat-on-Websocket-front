@@ -55,6 +55,7 @@ export const Header = ({ userName, setChatUserName }: HeaderType) => {
                     if (error) setError(null)
                   }}
                   onKeyDown={handleKeyDown}
+                  onBlur={handleConfirmName}
                   maxLength={15}
                   autoFocus
                 />
