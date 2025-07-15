@@ -10,7 +10,7 @@ type ChatState = {
   readyToSendMessagesStatus: boolean
 }
 
-const initialState = {
+const initialState: ChatState = {
   messages: [],
   typingUsers: [],
   connectionStatus: 'offline' as ServerStatusType,
@@ -26,87 +26,127 @@ export const chatSlice = createSlice({
     selectConnectionStatus: (s) => s.connectionStatus,
     selectReadyToSendMessagesStatus: (s) => s.readyToSendMessagesStatus,
   },
-  reducers: {},
+  reducers: (create) => ({
+    messagesReceived: create.reducer<Message[]>((state, action) => {
+      state.messages = action.payload
+    }),
+    newMessageReceived: create.reducer<Message>((state, action) => {
+      const newMessage = action.payload
+      if (state.messages.some((m) => m.id === newMessage.id)) return
+
+      state.messages.push(newMessage)
+      state.typingUsers = state.typingUsers.filter((u) => u.id !== newMessage.user.id)
+    }),
+    typingUserAdded: create.reducer<User>((state, action) => {
+      const user = action.payload
+      const index = state.typingUsers.findIndex((u) => u.id === user.id)
+      if (index !== -1) {
+        state.typingUsers[index] = user
+      } else {
+        state.typingUsers.push(user)
+      }
+    }),
+    typingUserRemoved: create.reducer<User>((state, action) => {
+      const user = action.payload
+      const index = state.typingUsers.findIndex((u) => u.id === user.id)
+      if (index !== -1) {
+        state.typingUsers.splice(index, 1)
+      }
+    }),
+    setConnectionStatus: create.reducer<ServerStatusType>((state, action) => {
+      state.connectionStatus = action.payload
+    }),
+    setReadyToSendMessages: create.reducer<boolean>((state, action) => {
+      state.readyToSendMessagesStatus = action.payload
+    }),
+  }),
 })
 
-export const {} = chatSlice.actions
+export const {
+  messagesReceived,
+  newMessageReceived,
+  typingUserAdded,
+  typingUserRemoved,
+  setConnectionStatus,
+  setReadyToSendMessages,
+} = chatSlice.actions
 export const { selectMessages, selectTypingUsers, selectConnectionStatus, selectReadyToSendMessagesStatus } =
   chatSlice.selectors
 export const chatReducer = chatSlice.reducer
 
-export const _chatReducer = (state: ChatState = initialState, action: Actions) => {
-  switch (action.type) {
-    case 'MESSAGES-RECEIVED': {
-      return { ...state, messages: action.messages }
-    }
+// export const _messagesReceived = (messages: Message[]) => ({
+//   type: 'MESSAGES-RECEIVED',
+//   messages
+// }) as const
 
-    case 'NEW-MESSAGE-RECEIVED': {
-      if (state.messages.some((m) => m.id === action.newMessage.id)) {
-        return state
-      }
-      return {
-        ...state,
-        messages: [...state.messages, action.newMessage],
-        typingUsers: state.typingUsers.filter((u) => u.id !== action.newMessage.user.id),
-      }
-    }
+// export const _newMessageReceived = (newMessage: Message) => ({
+//   type: 'NEW-MESSAGE-RECEIVED',
+//   newMessage
+// }) as const
 
-    case 'TYPING-USER-ADDED': {
-      return {
-        ...state,
-        typingUsers: [...state.typingUsers.filter((u) => u.id !== action.user.id), action.user],
-      }
-    }
+// export const _typingUserAdded = (user: User) => ({
+//   type: 'TYPING-USER-ADDED',
+//   user
+// }) as const
 
-    case 'TYPING-USER-REMOVED': {
-      return {
-        ...state,
-        typingUsers: state.typingUsers.filter((u) => u.id !== action.user.id),
-      }
-    }
+// export const _typingUserRemoved = (user: User) => ({
+//   type: 'TYPING-USER-REMOVED',
+//   user
+// }) as const
 
-    case 'CONNECTION-STATUS-UPDATED': {
-      return { ...state, connectionStatus: action.status }
-    }
+// export const _setConnectionStatus = (status: ServerStatusType) => ({
+//   type: 'CONNECTION-STATUS-UPDATED',
+//   status
+// }) as const
 
-    case 'READY-TO-SEND-MESSAGES': {
-      return { ...state, readyToSendMessages: action.isReady }
-    }
+// export const _setReadyToSendMessages = (isReady: boolean) => ({
+//   type: 'READY-TO-SEND-MESSAGES',
+//   isReady
+// }) as const
 
-    default:
-      return state
-  }
-}
-
-export const messagesReceived = (messages: Message[]) => ({
-  type: 'MESSAGES-RECEIVED',
-  messages
-}) as const
-
-export const newMessageReceived = (newMessage: Message) => ({
-  type: 'NEW-MESSAGE-RECEIVED',
-  newMessage
-}) as const
-
-export const typingUserAdded = (user: User) => ({
-  type: 'TYPING-USER-ADDED',
-  user
-}) as const
-
-export const typingUserRemoved = (user: User) => ({
-  type: 'TYPING-USER-REMOVED',
-  user
-}) as const
-
-export const setConnectionStatus = (status: ServerStatusType) => ({
-  type: 'CONNECTION-STATUS-UPDATED',
-  status
-}) as const
-
-export const setReadyToSendMessages = (isReady: boolean) => ({
-  type: 'READY-TO-SEND-MESSAGES',
-  isReady
-}) as const
+// export const _chatReducer = (state: ChatState = initialState, action: Actions) => {
+//   switch (action.type) {
+//     case 'MESSAGES-RECEIVED': {
+//       return { ...state, messages: action.messages }
+//     }
+//
+//     case 'NEW-MESSAGE-RECEIVED': {
+//       if (state.messages.some((m) => m.id === action.newMessage.id)) {
+//         return state
+//       }
+//       return {
+//         ...state,
+//         messages: [...state.messages, action.newMessage],
+//         typingUsers: state.typingUsers.filter((u) => u.id !== action.newMessage.user.id),
+//       }
+//     }
+//
+//     case 'TYPING-USER-ADDED': {
+//       return {
+//         ...state,
+//         typingUsers: [...state.typingUsers.filter((u) => u.id !== action.user.id), action.user],
+//       }
+//     }
+//
+//     case 'TYPING-USER-REMOVED': {
+//       return {
+//         ...state,
+//         typingUsers: state.typingUsers.filter((u) => u.id !== action.user.id),
+//       }
+//     }
+//
+//     case 'CONNECTION-STATUS-UPDATED': {
+//       return { ...state, connectionStatus: action.status }
+//     }
+//
+//     case 'READY-TO-SEND-MESSAGES': {
+//       return { ...state, readyToSendMessages: action.isReady }
+//     }
+//
+//     default:
+//       return state
+//   }
+// }
 
 export const createConnection = () => (dispatch: Dispatch<Actions>) => {
   api.createConnection()
