@@ -19,7 +19,13 @@ export const api = {
   socket: null as Socket | null,
 
   createConnection() {
-    this.socket = io(socket)
+    this.socket = io(socket, {
+      reconnection: true,
+      reconnectionAttempts: 5,
+      reconnectionDelay: 1000,
+      reconnectionDelayMax: 5000,
+      timeout: 20000,
+    })
   },
 
   subscribe(
