@@ -1,18 +1,23 @@
 import s from './ServerStatus.module.css'
+import { useSelector } from 'react-redux'
+import type { AppStateType } from '../../store.ts'
 
 export type ServerStatusType = 'online' | 'offline'
 
-type ServerStatusProps = {
-  status: ServerStatusType
-}
+export const ServerStatus = () => {
+  const connectionStatus = useSelector((state: AppStateType) => state.chat.connectionStatus)
+  const readyToSendMessages = useSelector((state: AppStateType) => state.chat.readyToSendMessages)
 
-export const ServerStatus = ({ status }: ServerStatusProps) => {
+  console.log(connectionStatus, readyToSendMessages)
+
+  const isOnline = connectionStatus && readyToSendMessages
+
   const statusMap = {
     online: { color: '#4caf50', text: 'Live' },
     offline: { color: '#f44336', text: 'Offline' },
   }
 
-  const { color, text } = statusMap[status] || statusMap.offline
+  const { color, text } = isOnline ? statusMap.online : statusMap.offline
 
   return (
     <div className={s.container} style={{ color }}>

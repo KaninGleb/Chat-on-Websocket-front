@@ -7,7 +7,6 @@ import s from './App.module.css'
 
 function App() {
   const messages = useSelector((state: AppStateType) => state.chat.messages)
-  const connectionStatus = useSelector((state: AppStateType) => state.chat.connectionStatus)
 
   const [name, setName] = useState('')
   const [chatUserName, setChatUserName] = useState<string>(() => localStorage.getItem('userName') || 'Anonymous')
@@ -45,7 +44,7 @@ function App() {
 
   return (
     <div className={s.appContainer}>
-      <Header userName={chatUserName} connectionStatus={connectionStatus} />
+      <Header userName={chatUserName} />
 
       <MessagesList
         messages={messages}
