@@ -1,6 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit'
 import { api } from '../common/api/api.ts'
-import type { Dispatch } from 'react'
+import { createAppSlice } from '../common/utils/createAppSlice.ts'
 import type { Message, User, ServerStatusType } from '../common/types'
 
 type ChatState = {
@@ -17,7 +16,7 @@ const initialState: ChatState = {
   readyToSendMessagesStatus: false,
 }
 
-export const chatSlice = createSlice({
+export const chatSlice = createAppSlice({
   name: 'chatSlice',
   initialState,
   selectors: {
@@ -59,6 +58,42 @@ export const chatSlice = createSlice({
     setReadyToSendMessages: create.reducer<boolean>((state, action) => {
       state.readyToSendMessagesStatus = action.payload
     }),
+
+    createConnection: create.asyncThunk(async (_, { dispatch }) => {
+      api.createConnection()
+      dispatch(setConnectionStatus('online'))
+
+      api.subscribe(
+        (messages: Message[]) => {
+          dispatch(messagesReceived(messages))
+          dispatch(setReadyToSendMessages(true))
+        },
+        (newMessage: Message) => dispatch(newMessageReceived(newMessage)),
+        (user: User) => dispatch(typingUserAdded(user)),
+        (user: User) => dispatch(typingUserRemoved(user)),
+      )
+
+      api.onDisconnect(() => {
+        dispatch(setConnectionStatus('offline'))
+        dispatch(setReadyToSendMessages(false))
+      })
+    }),
+    sendClientName: create.asyncThunk(async (name: string) => {
+      api.sendName(name)
+    }),
+    typeMessage: create.asyncThunk(async () => {
+      api.typeMessage()
+    }),
+    stopTypingMessage: create.asyncThunk(async () => {
+      api.stopTyping()
+    }),
+    sendClientMessage: create.asyncThunk(async (message: string) => {
+      api.sendMessage(message)
+    }),
+    destroyConnection: create.asyncThunk(async (_, { dispatch }) => {
+      api.destroyConnection()
+      dispatch(setConnectionStatus('offline'))
+    }),
   }),
 })
 
@@ -69,50 +104,15 @@ export const {
   typingUserRemoved,
   setConnectionStatus,
   setReadyToSendMessages,
+  createConnection,
+  sendClientName,
+  typeMessage,
+  stopTypingMessage,
+  sendClientMessage,
+  destroyConnection,
 } = chatSlice.actions
+
 export const { selectMessages, selectTypingUsers, selectConnectionStatus, selectReadyToSendMessagesStatus } =
   chatSlice.selectors
+
 export const chatReducer = chatSlice.reducer
-
-
-export const createConnection = () => (dispatch: Dispatch<Actions>) => {
-  api.createConnection()
-  dispatch(setConnectionStatus('online'))
-
-  api.subscribe(
-    (messages: Message[]) => {
-      dispatch(messagesReceived(messages))
-      dispatch(setReadyToSendMessages(true))
-    },
-    (newMessage: Message) => dispatch(newMessageReceived(newMessage)),
-    (user: User) => dispatch(typingUserAdded(user)),
-    (user: User) => dispatch(typingUserRemoved(user)),
-  )
-
-  api.onDisconnect(() => {
-    dispatch(setConnectionStatus('offline'))
-    dispatch(setReadyToSendMessages(false))
-  })
-}
-
-export const sendClientName = (name: string) => () => {
-  api.sendName(name)
-}
-
-export const typeMessage = () => () => {
-  api.typeMessage()
-}
-
-export const stopTypingMessage = () => () => {
-  api.stopTyping()
-}
-
-export const sendClientMessage = (message: string) => () => {
-  api.sendMessage(message)
-}
-
-export const destroyConnection = () => (dispatch: Dispatch<Actions>) => {
-  api.destroyConnection()
-  dispatch(setConnectionStatus('offline'))
-}
-
