@@ -1,16 +1,11 @@
-import { legacy_createStore as createStore, combineReducers, applyMiddleware, type Action } from 'redux'
-import { chatReducer } from './chat-reducer.ts'
-import { thunk, type ThunkDispatch } from 'redux-thunk'
+import { chatSlice, chatReducer } from './chat-slice.ts'
+import { configureStore } from '@reduxjs/toolkit'
 
-const rootReducer = combineReducers({
-  chat: chatReducer,
+export const store = configureStore({
+  reducer: {
+    [chatSlice.name]: chatReducer,
+  },
 })
 
-export type AppStateType = ReturnType<typeof rootReducer>
-
-export const store = createStore(
-  rootReducer,
-  applyMiddleware(thunk)
-)
-
-export type AppDispatch = ThunkDispatch<AppStateType, unknown, Action>
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
