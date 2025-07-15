@@ -34,11 +34,19 @@ export const api = {
     this.socket?.on(EVENTS.USER_STOP_TYPING, userStopTypingHandler)
   },
 
+  unsubscribe() {
+    this.socket?.off(EVENTS.INIT_MESSAGES)
+    this.socket?.off(EVENTS.NEW_MESSAGE)
+    this.socket?.off(EVENTS.USER_TYPING)
+    this.socket?.off(EVENTS.USER_STOP_TYPING)
+  },
+
   onDisconnect(disconnectHandler: () => void) {
     this.socket?.on(EVENTS.DISCONNECT, disconnectHandler)
   },
 
   destroyConnection() {
+    this.unsubscribe()
     this.socket?.disconnect()
     this.socket = null
   },
