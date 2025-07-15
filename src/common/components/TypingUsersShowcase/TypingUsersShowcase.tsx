@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import type { AppStateType } from '../../store.ts'
+import type { AppStateType } from '../../../app/store.ts'
 import s from './TypingUsersShowcase.module.css'
 
 export const TypingUsersShowcase = () => {

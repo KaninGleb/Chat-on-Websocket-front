@@ -1,9 +1,8 @@
-import { ServerStatus, type ServerStatusType } from '../ServerStatus/ServerStatus.tsx'
+import { ServerStatus } from '../ServerStatus/ServerStatus.tsx'
 import s from './Header.module.css'
 
 type HeaderType = {
   userName: string
-  connectionStatus: ServerStatusType
 }
 
 export const Header = ({ userName }: HeaderType) => (

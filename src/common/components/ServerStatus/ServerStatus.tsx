@@ -1,6 +1,6 @@
 import s from './ServerStatus.module.css'
 import { useSelector } from 'react-redux'
-import type { AppStateType } from '../../store.ts'
+import type { AppStateType } from '../../../app/store.ts'
 
 export type ServerStatusType = 'online' | 'offline'
 

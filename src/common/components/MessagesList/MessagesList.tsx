@@ -8,10 +8,10 @@ import {
 } from 'react'
 import { MessageItem } from './MessageItem/MessageItem.tsx'
 import { TypingUsersShowcase } from '../TypingUsersShowcase/TypingUsersShowcase.tsx'
-import type { Message } from '../../chat-reducer.ts'
+import type { Message } from '../../../app/chat-reducer.ts'
 import s from './MessagesList.module.css'
 import { useSelector } from 'react-redux'
-import type { AppStateType } from '../../store.ts'
+import type { AppStateType } from '../../../app/store.ts'
 
 type MessagesListPropsType = {
   messages: Message[]

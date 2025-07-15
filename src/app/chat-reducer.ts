@@ -1,5 +1,5 @@
-import { api } from './api.ts'
-import type { ServerStatusType } from './components'
+import { api } from '../common/api/api.ts'
+import type { ServerStatusType } from '../common/components'
 import type { Dispatch } from 'react'
 
 export type User = {

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import type { AppDispatch, AppStateType } from './store.ts'
 import { createConnection, destroyConnection, sendClientMessage, sendClientName } from './chat-reducer.ts'
-import { Header, MessageInput, MessagesList } from './components'
+import { Header, MessageInput, MessagesList } from '../common/components'
 import s from './App.module.css'
 
 function App() {

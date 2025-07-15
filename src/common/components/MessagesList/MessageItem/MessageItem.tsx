@@ -1,4 +1,4 @@
-import type { Message } from '../../../chat-reducer.ts'
+import type { Message } from '../../../../app/chat-reducer.ts'
 import s from './MessageItem.module.css'
 
 type MessageItemPropsType = {
