@@ -1,9 +1,9 @@
 import { useSelector } from 'react-redux'
-import type { AppStateType } from '../../../app/store.ts'
 import s from './TypingUsersShowcase.module.css'
+import { selectTypingUsers } from '../../../app/chat-slice.ts'
 
 export const TypingUsersShowcase = () => {
-  const typingUsers = useSelector((state: AppStateType) => state.chat.typingUsers)
+  const typingUsers = useSelector(selectTypingUsers)
   const count = typingUsers.length
 
   switch (count) {

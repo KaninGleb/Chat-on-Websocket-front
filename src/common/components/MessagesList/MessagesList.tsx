@@ -8,10 +8,10 @@ import {
 } from 'react'
 import { MessageItem } from './MessageItem/MessageItem.tsx'
 import { TypingUsersShowcase } from '../TypingUsersShowcase/TypingUsersShowcase.tsx'
-import type { Message } from '../../../app/chat-reducer.ts'
 import s from './MessagesList.module.css'
 import { useSelector } from 'react-redux'
-import type { AppStateType } from '../../../app/store.ts'
+import type { Message } from '../../types'
+import { selectTypingUsers } from '../../../app/chat-slice.ts'
 
 type MessagesListPropsType = {
   messages: Message[]
@@ -21,7 +21,7 @@ type MessagesListPropsType = {
 }
 
 export const MessagesList = memo(({ messages, userName, isAutoScrollActive, setIsAutoScrollActive }: MessagesListPropsType) => {
-  const typingUsers = useSelector((state: AppStateType) => state.chat.typingUsers)
+  const typingUsers = useSelector(selectTypingUsers)
   const lastScrollTopRef = useRef(0)
   const isTyping = typingUsers.length > 0
 

@@ -1,14 +1,10 @@
-import s from './ServerStatus.module.css'
 import { useSelector } from 'react-redux'
-import type { AppStateType } from '../../../app/store.ts'
-
-export type ServerStatusType = 'online' | 'offline'
+import { selectConnectionStatus, selectReadyToSendMessagesStatus } from '../../../app/chat-slice.ts'
+import s from './ServerStatus.module.css'
 
 export const ServerStatus = () => {
-  const connectionStatus = useSelector((state: AppStateType) => state.chat.connectionStatus)
-  const readyToSendMessages = useSelector((state: AppStateType) => state.chat.readyToSendMessages)
-
-  console.log(connectionStatus, readyToSendMessages)
+  const connectionStatus = useSelector(selectConnectionStatus)
+  const readyToSendMessages = useSelector(selectReadyToSendMessagesStatus)
 
   const isOnline = connectionStatus && readyToSendMessages
 

@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux'
 import { type ChangeEvent, type KeyboardEvent, useRef, useState } from 'react'
 import type { AppDispatch } from '../../../app/store.ts'
-import { stopTypingMessage, typeMessage } from '../../../app/chat-reducer.ts'
+import { stopTypingMessage, typeMessage } from '../../../app/chat-slice.ts'
 import sendIcon from '../../../assets/send-button-icon.svg'
 import s from './MessageInput.module.css'
 

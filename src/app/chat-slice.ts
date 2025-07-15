@@ -1,41 +1,37 @@
+import { createSlice } from '@reduxjs/toolkit'
 import { api } from '../common/api/api.ts'
-import type { ServerStatusType } from '../common/components'
 import type { Dispatch } from 'react'
-
-export type User = {
-  id: string
-  name: string
-}
-
-export type Message = {
-  id: string
-  message: string
-  user: User
-  time?: string
-}
+import type { Message, User, ServerStatusType } from '../common/types'
 
 type ChatState = {
   messages: Message[]
   typingUsers: User[]
   connectionStatus: ServerStatusType
-  readyToSendMessages: boolean
+  readyToSendMessagesStatus: boolean
 }
 
 const initialState = {
   messages: [],
   typingUsers: [],
   connectionStatus: 'offline' as ServerStatusType,
-  readyToSendMessages: false,
+  readyToSendMessagesStatus: false,
 }
 
 export const chatSlice = createSlice({
   name: 'chatSlice',
   initialState,
-
+  selectors: {
+    selectMessages: (s) => s.messages,
+    selectTypingUsers: (s) => s.typingUsers,
+    selectConnectionStatus: (s) => s.connectionStatus,
+    selectReadyToSendMessagesStatus: (s) => s.readyToSendMessagesStatus,
+  },
   reducers: {},
 })
 
 export const {} = chatSlice.actions
+export const { selectMessages, selectTypingUsers, selectConnectionStatus, selectReadyToSendMessagesStatus } =
+  chatSlice.selectors
 export const chatReducer = chatSlice.reducer
 
 export const _chatReducer = (state: ChatState = initialState, action: Actions) => {
