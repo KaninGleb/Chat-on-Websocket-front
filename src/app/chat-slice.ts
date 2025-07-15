@@ -28,7 +28,17 @@ const initialState = {
   readyToSendMessages: false,
 }
 
-export const chatReducer = (state: ChatState = initialState, action: Actions) => {
+export const chatSlice = createSlice({
+  name: 'chatSlice',
+  initialState,
+
+  reducers: {},
+})
+
+export const {} = chatSlice.actions
+export const chatReducer = chatSlice.reducer
+
+export const _chatReducer = (state: ChatState = initialState, action: Actions) => {
   switch (action.type) {
     case 'MESSAGES-RECEIVED': {
       return { ...state, messages: action.messages }
