@@ -1,6 +1,6 @@
 import { type ChangeEvent, type Dispatch, type KeyboardEvent, type SetStateAction, useRef, useState } from 'react'
-import { useAppDispatch } from '../../hooks'
-import { sendClientMessage, stopTypingMessage, typeMessage } from '../../../app/chat-slice.ts'
+import { useAppSelector, useAppDispatch } from '../../hooks'
+import { selectConnectionStatus, sendClientMessage, stopTypingMessage, typeMessage } from '../../../app/chat-slice.ts'
 import sendIcon from '../../../assets/send-button-icon.svg'
 import s from './MessageInput.module.css'
 
@@ -10,6 +10,9 @@ type MessageInputProps = {
 }
 
 export const MessageInput = ({ setIsAutoScrollActive, isScrolling }: MessageInputProps) => {
+  const connectionStatus = useAppSelector(selectConnectionStatus)
+  const isConnected = connectionStatus === 'online'
+
   const [message, setMessage] = useState('')
   const dispatch = useAppDispatch()
   const textareaRef = useRef<HTMLTextAreaElement>(null)
@@ -74,7 +77,8 @@ export const MessageInput = ({ setIsAutoScrollActive, isScrolling }: MessageInpu
               value={message}
               onChange={handleChange}
               onKeyDown={handleKeyDown}
-              placeholder='Message'
+              disabled={!isConnected}
+              placeholder={!isConnected ? 'There is no connection to the server' : 'Message'}
               rows={1}
             />
             <svg width='9' height='20' className={`${s.ownAppendix} ${s.inputAppendix}`}>
@@ -90,7 +94,11 @@ export const MessageInput = ({ setIsAutoScrollActive, isScrolling }: MessageInpu
               </g>
             </svg>
           </div>
-          <button className={s.sendButton} onClick={handleSendClick}>
+          <button
+            className={s.sendButton}
+            onClick={handleSendClick}
+            disabled={!isConnected}
+          >
             <img className={s.sendButtonIcon} src={sendIcon} alt='Send icon' />
           </button>
         </div>
