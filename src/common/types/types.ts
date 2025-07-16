@@ -10,4 +10,4 @@ export type Message = {
   createdAt: string
 }
 
-export type ServerStatusType = 'online' | 'offline'
+export type ServerStatusType = 'online' | 'offline' | 'connecting'

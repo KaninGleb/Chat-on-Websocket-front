@@ -3,12 +3,13 @@ import type { Message, User } from '../types'
 
 const socket = 'https://chat-on-websocket-back.onrender.com'
 
-const EVENTS = {
+export const EVENTS = {
   INIT_MESSAGES: 'init-messages-published',
   NEW_MESSAGE: 'new-message-sent',
   USER_TYPING: 'user-typing',
   USER_STOP_TYPING: 'user-stopped-typing',
   USERS_COUNT_UPDATING: 'users-count-updated',
+  CONNECT: 'connect',
   DISCONNECT: 'disconnect',
   CLIENT_TIMEZONE_SENT: 'client-timezone-sent',
   CLIENT_NAME_SENT: 'client-name-sent',

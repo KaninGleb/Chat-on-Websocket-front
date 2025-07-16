@@ -64,8 +64,8 @@ export const chatSlice = createAppSlice({
     }),
 
     createConnection: create.asyncThunk(async (_, { dispatch }) => {
+      dispatch(setConnectionStatus('connecting'))
       api.createConnection()
-      dispatch(setConnectionStatus('online'))
 
       const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
       api.sendTimeZone(timeZone)
