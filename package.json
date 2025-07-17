@@ -10,18 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "clsx": "2.1.1",
-    "express": "5.1.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-redux": "9.2.0",
     "redux": "5.0.1",
     "redux-thunk": "3.1.0",
     "@reduxjs/toolkit": "^2.8.2",
-    "socket.io-client": "4.8.1",
-    "styled": "1.0.0",
-    "styled-components": "6.1.19",
-    "uuid": "11.1.0"
+    "socket.io-client": "4.8.1"
   },
   "devDependencies": {
     "@types/react": "19.1.8",
