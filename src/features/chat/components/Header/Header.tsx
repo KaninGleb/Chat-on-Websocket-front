@@ -1,8 +1,8 @@
 import { ServerStatus } from '../ServerStatus/ServerStatus.tsx'
-import penIcon from '../../../assets/pen-edit-icon.svg'
+import penIcon from '../../../../assets/pen-edit-icon.svg'
 import { type KeyboardEvent, useState } from 'react'
-import { sendClientName } from '../../../app/chat-slice.ts'
-import { useAppDispatch } from '../../hooks'
+import { sendClientName } from '../../model/chat-slice.ts'
+import { useAppDispatch } from '../../../../common/hooks'
 import s from './Header.module.css'
 
 type HeaderType = {

@@ -1,6 +1,6 @@
-import { api } from '../common/api/api.ts'
-import { createAppSlice } from '../common/utils/createAppSlice.ts'
-import type { Message, User, ServerStatusType } from '../common/types'
+import { chatApi } from '@/features/chat/api/chatApi.ts'
+import { createAppSlice } from '../../../common/utils/createAppSlice.ts'
+import type { Message, User, ServerStatusType } from '../../../common/types'
 
 type ChatState = {
   messages: Message[]
@@ -65,12 +65,12 @@ export const chatSlice = createAppSlice({
 
     createConnection: create.asyncThunk(async (_, { dispatch }) => {
       dispatch(setConnectionStatus('connecting'))
-      api.createConnection()
+      chatApi.createConnection()
 
       const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
-      api.sendTimeZone(timeZone)
+      chatApi.sendTimeZone(timeZone)
 
-      api.subscribe(
+      chatApi.subscribe(
         (messages: Message[]) => {
           dispatch(messagesReceived(messages))
           dispatch(setReadyToSendMessages(true))
@@ -81,27 +81,27 @@ export const chatSlice = createAppSlice({
         (count: number) => dispatch(usersCountUpdated(count)),
       )
 
-      api.onDisconnect(() => {
-        api.stopTyping()
+      chatApi.onDisconnect(() => {
+        chatApi.stopTyping()
         dispatch(setConnectionStatus('offline'))
         dispatch(setReadyToSendMessages(false))
         dispatch(usersCountUpdated(0))
       })
     }),
     sendClientName: create.asyncThunk(async (name: string) => {
-      api.sendName(name)
+      chatApi.sendName(name)
     }),
     typeMessage: create.asyncThunk(async () => {
-      api.typeMessage()
+      chatApi.typeMessage()
     }),
     stopTypingMessage: create.asyncThunk(async () => {
-      api.stopTyping()
+      chatApi.stopTyping()
     }),
     sendClientMessage: create.asyncThunk(async (message: string) => {
-      api.sendMessage(message)
+      chatApi.sendMessage(message)
     }),
     destroyConnection: create.asyncThunk(async (_, { dispatch }) => {
-      api.destroyConnection()
+      chatApi.destroyConnection()
       dispatch(setConnectionStatus('offline'))
       dispatch(usersCountUpdated(0))
     }),

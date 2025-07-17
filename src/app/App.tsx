@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useChatConnection, useSendClientName } from '../common/hooks'
-import { Header, MessageInput, MessagesList } from '../common/components'
+import { Header, MessageInput, MessagesList } from '../features/chat/components'
 import s from './App.module.css'
 
 function App() {

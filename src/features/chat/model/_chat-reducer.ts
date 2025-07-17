@@ -78,10 +78,10 @@
 
 // ----- Thunks -----
 // export const createConnection = () => (dispatch: Dispatch<Actions>) => {
-//   api.createConnection()
+//   chatApi.createConnection()
 //   dispatch(setConnectionStatus('online'))
 //
-//   api.subscribe(
+//   chatApi.subscribe(
 //     (messages: Message[]) => {
 //       dispatch(messagesReceived(messages))
 //       dispatch(setReadyToSendMessages(true))
@@ -91,30 +91,30 @@
 //     (user: User) => dispatch(typingUserRemoved(user)),
 //   )
 //
-//   api.onDisconnect(() => {
+//   chatApi.onDisconnect(() => {
 //     dispatch(setConnectionStatus('offline'))
 //     dispatch(setReadyToSendMessages(false))
 //   })
 // }
 //
 // export const sendClientName = (name: string) => () => {
-//   api.sendName(name)
+//   chatApi.sendName(name)
 // }
 //
 // export const typeMessage = () => () => {
-//   api.typeMessage()
+//   chatApi.typeMessage()
 // }
 //
 // export const stopTypingMessage = () => () => {
-//   api.stopTyping()
+//   chatApi.stopTyping()
 // }
 //
 // export const sendClientMessage = (message: string) => () => {
-//   api.sendMessage(message)
+//   chatApi.sendMessage(message)
 // }
 //
 // export const destroyConnection = () => (dispatch: Dispatch<Actions>) => {
-//   api.destroyConnection()
+//   chatApi.destroyConnection()
 //   dispatch(setConnectionStatus('offline'))
 // }
 

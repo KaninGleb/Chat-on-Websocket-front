@@ -1,16 +1,7 @@
-import {
-  useCallback,
-  type UIEvent,
-  type Dispatch,
-  type SetStateAction,
-  memo,
-  useEffect,
-  useRef
-} from 'react'
-import { MessageItem } from './MessageItem/MessageItem.tsx'
-import { TypingUsersShowcase } from '../TypingUsersShowcase/TypingUsersShowcase.tsx'
-import { useAppSelector } from '../../hooks'
-import { selectMessages, selectTypingUsers } from '../../../app/chat-slice.ts'
+import { type Dispatch, type SetStateAction, memo, useRef, useCallback, type UIEvent, useEffect } from 'react'
+import { useAppSelector } from '@/common/hooks'
+import { selectMessages, selectTypingUsers } from '@/features/chat/model/chat-slice.ts'
+import { TypingUsersShowcase, MessageItem } from '@/features/chat/components'
 import s from './MessagesList.module.css'
 
 type MessagesListPropsType = {

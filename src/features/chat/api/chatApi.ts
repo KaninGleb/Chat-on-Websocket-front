@@ -1,5 +1,5 @@
 import { io, Socket } from 'socket.io-client'
-import type { Message, User } from '../types'
+import type { Message, User } from '../../../common/types'
 
 const socket = 'https://chat-on-websocket-back.onrender.com'
 
@@ -18,7 +18,7 @@ export const EVENTS = {
   CLIENT_STOPPED_TYPING: 'client-stopped-typing',
 } as const
 
-export const api = {
+export const chatApi = {
   socket: null as Socket | null,
 
   createConnection() {

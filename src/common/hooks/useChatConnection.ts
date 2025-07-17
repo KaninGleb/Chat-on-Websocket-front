@@ -6,9 +6,9 @@ import {
   setReadyToSendMessages,
   usersCountUpdated,
   destroyConnection,
-} from '../../app/chat-slice.ts'
+} from '../../features/chat/model/chat-slice.ts'
 import { useAppDispatch } from './useAppDispatch.ts'
-import { api, EVENTS } from '../api/api.ts'
+import { chatApi, EVENTS } from '@/features/chat/api/chatApi.ts'
 
 export const useChatConnection = () => {
   const dispatch = useAppDispatch()
@@ -16,7 +16,7 @@ export const useChatConnection = () => {
   useEffect(() => {
     dispatch(createConnection())
 
-    api.socket?.on(EVENTS.CONNECT, () => {
+    chatApi.socket?.on(EVENTS.CONNECT, () => {
       dispatch(setConnectionStatus('online'))
 
       const savedName = localStorage.getItem('userName')
@@ -25,15 +25,15 @@ export const useChatConnection = () => {
       }
     })
 
-    api.socket?.on(EVENTS.DISCONNECT, () => {
+    chatApi.socket?.on(EVENTS.DISCONNECT, () => {
       dispatch(setConnectionStatus('offline'))
       dispatch(setReadyToSendMessages(false))
       dispatch(usersCountUpdated(0))
     })
 
     return () => {
-      api.socket?.off(EVENTS.CONNECT)
-      api.socket?.off(EVENTS.DISCONNECT)
+      chatApi.socket?.off(EVENTS.CONNECT)
+      chatApi.socket?.off(EVENTS.DISCONNECT)
       dispatch(destroyConnection())
     }
   }, [])

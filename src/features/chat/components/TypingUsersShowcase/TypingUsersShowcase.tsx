@@ -1,5 +1,5 @@
-import { useAppSelector } from '../../hooks'
-import { selectTypingUsers } from '../../../app/chat-slice.ts'
+import { useAppSelector } from '../../../../common/hooks'
+import { selectTypingUsers } from '../../model/chat-slice.ts'
 import s from './TypingUsersShowcase.module.css'
 
 export const TypingUsersShowcase = () => {

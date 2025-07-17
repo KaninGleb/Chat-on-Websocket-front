@@ -1,5 +1,5 @@
 import s from './MessageItem.module.css'
-import type { Message } from '../../../types'
+import type { Message } from '../../../../../common/types'
 import { useEffect, useRef, useState } from 'react'
 
 type MessageItemPropsType = {
