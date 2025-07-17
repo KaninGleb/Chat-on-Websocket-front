@@ -31,16 +31,16 @@ git clone https://github.com/your-username/chat-via-websocket-front.git
 cd chat-via-websocket-front
 
 # Install dependencies
-npm install
+pnpm install
 
 # Run in development mode
-npm run dev
+pnpm run dev
 
 # Build for production
-npm run build
+pnpm run build
 
 # Preview production build
-npm run preview
+pnpm run preview
 ```
 
 > ⚠️ **Important:** The app requires a running backend WebSocket server. The default backend is [https://chat-on-websocket-back.onrender.com](https://chat-on-websocket-back.onrender.com), but you can host your own.
