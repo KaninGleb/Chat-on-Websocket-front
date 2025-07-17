@@ -1,6 +1,6 @@
-import { chatApi } from '@/features/chat/api/chatApi.ts'
-import { createAppSlice } from '../../../common/utils/createAppSlice.ts'
-import type { Message, User, ServerStatusType } from '../../../common/types'
+import { createAppSlice } from '@/common/utils'
+import { chatApi } from '@/features/chat/api'
+import type { Message, User, ServerStatusType } from '@/common/types'
 
 type ChatState = {
   messages: Message[]

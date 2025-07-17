@@ -1,4 +1,6 @@
 import { useEffect } from 'react'
+import { useAppDispatch } from './useAppDispatch.ts'
+import { chatApi, EVENTS } from '@/features/chat/api/chatApi.ts'
 import {
   createConnection,
   setConnectionStatus,
@@ -6,9 +8,7 @@ import {
   setReadyToSendMessages,
   usersCountUpdated,
   destroyConnection,
-} from '../../features/chat/model/chat-slice.ts'
-import { useAppDispatch } from './useAppDispatch.ts'
-import { chatApi, EVENTS } from '@/features/chat/api/chatApi.ts'
+} from '@/features/chat/model'
 
 export const useChatConnection = () => {
   const dispatch = useAppDispatch()

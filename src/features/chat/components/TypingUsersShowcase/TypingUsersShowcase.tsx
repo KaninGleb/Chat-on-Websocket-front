@@ -1,5 +1,5 @@
-import { useAppSelector } from '../../../../common/hooks'
-import { selectTypingUsers } from '../../model/chat-slice.ts'
+import { useAppSelector } from '@/common/hooks'
+import { selectTypingUsers } from '@/features/chat/model'
 import s from './TypingUsersShowcase.module.css'
 
 export const TypingUsersShowcase = () => {
@@ -8,7 +8,7 @@ export const TypingUsersShowcase = () => {
 
   if (count === 0) return null
 
-  let typingMessage = ''
+  let typingMessage: string
 
   switch (count) {
     case 1:

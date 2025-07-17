@@ -1,5 +1,5 @@
 import { io, Socket } from 'socket.io-client'
-import type { Message, User } from '../../../common/types'
+import type { Message, User } from '@/common/types'
 
 const socket = 'https://chat-on-websocket-back.onrender.com'
 

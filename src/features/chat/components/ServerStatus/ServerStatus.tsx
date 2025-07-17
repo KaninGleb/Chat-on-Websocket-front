@@ -1,5 +1,5 @@
-import { useAppSelector } from '../../../../common/hooks'
-import { selectConnectionStatus, selectReadyToSendMessagesStatus, selectUsersCount } from '../../model/chat-slice.ts'
+import { useAppSelector } from '@/common/hooks'
+import { selectConnectionStatus, selectReadyToSendMessagesStatus, selectUsersCount } from '@/features/chat/model'
 import s from './ServerStatus.module.css'
 
 export const ServerStatus = () => {

@@ -1,7 +1,7 @@
 import { type ChangeEvent, type Dispatch, type KeyboardEvent, type SetStateAction, useRef, useState } from 'react'
-import { useAppSelector, useAppDispatch } from '../../../../common/hooks'
-import { selectConnectionStatus, sendClientMessage, stopTypingMessage, typeMessage } from '../../model/chat-slice.ts'
-import sendIcon from '../../../../assets/send-button-icon.svg'
+import { useAppSelector, useAppDispatch } from '@/common/hooks'
+import { selectConnectionStatus, typeMessage, stopTypingMessage, sendClientMessage } from '@/features/chat/model'
+import { sendIcon } from '@/assets'
 import s from './MessageInput.module.css'
 
 type MessageInputProps = {
