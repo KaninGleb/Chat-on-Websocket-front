@@ -1,69 +1,75 @@
-# React + TypeScript + Vite
+# 🧩 WebSocket Frontend Chat App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the **frontend** part of a mini real-time chat application built with **React** and `socket.io`. It connects to a backend server via WebSocket and allows users to exchange messages, see who is typing, and track the number of active users in real time.
 
-Currently, two official plugins are available:
+👉 The **backend** part is hosted separately and handles all WebSocket communication: [Chat-via-Websocket-back](https://github.com/KaninGleb/Chat-via-Websocket-back)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## Expanding the ESLint configuration
+* Real-time messaging via `socket.io-client`
+* Typing indicators
+* Live user count
+* Automatic reconnection
+* Client name and timezone detection
+* Redux-powered state management
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠️ Tech Stack
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+* **React 19** + **Redux Toolkit**
+* **TypeScript**
+* **CSS Modules**
+* **Vite** (with SWC for fast builds)
+* **Socket.IO**
+* **Vitest** (for testing)
+* **ESLint / Prettier** (for code quality)
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## 📦 Getting Started
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+# Clone the repo
+git clone https://github.com/your-username/chat-via-websocket-front.git
+cd chat-via-websocket-front
+
+# Install dependencies
+npm install
+
+# Run in development mode
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+> ⚠️ **Important:** The app requires a running backend WebSocket server. The default backend is [https://chat-on-websocket-back.onrender.com](https://chat-on-websocket-back.onrender.com), but you can host your own.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 📁 Project Structure
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+├── app/              # App root logic (entry point, main component, store)
+├── assets/           # Static assets (e.g., images, fonts, icons)
+├── common/           # Reusable code shared across features
+│   ├── hooks/        # Custom React hooks
+│   ├── types/        # Global TypeScript types and interfaces
+│   └── utils/        # Utility functions and helpers
+├── features/
+│   └── chat/         # Chat feature module (logic, UI, API)
+│       ├── api/           # WebSocket API setup and integration
+│       ├── components/    # Presentational and container components
+│       └── model/         # Chat-related Redux slices and reducers
+
+```
+
+## 📡 WebSocket Events
+
+* `init-messages-published` — initial message history
+* `new-message-sent` — new incoming message
+* `user-typing`, `user-stopped-typing` — typing indicators
+* `users-count-updated` — number of connected users
+* `connect`, `disconnect` — connection status events
+
+## 📄 License
+
+MIT — free to use, modify, and distribute.
