@@ -24,6 +24,7 @@
 body {
     min-height: 100vh;
     background-color: #242424;
+    overflow: hidden;
 }
 
 .appContainer {
@@ -33,16 +34,3 @@ body {
     margin: 0 auto;
     background-color: #242424;
 }
-
-/* ----- Styles for nameInputGroup ----- */
-/*.nameInputGroup {*/
-/*    display: flex;*/
-/*    gap: 10px;*/
-/*    margin-bottom: 20px;*/
-/*}*/
-
-/*.inputField {*/
-/*    composes: baseInput;*/
-/*    width: 100%;*/
-/*    line-height: 1.5;*/
-/*}*/
