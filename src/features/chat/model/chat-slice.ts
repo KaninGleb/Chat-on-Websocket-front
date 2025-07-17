@@ -81,6 +81,10 @@ export const chatSlice = createAppSlice({
         (count: number) => dispatch(usersCountUpdated(count)),
       )
 
+      chatApi.onConnect(() => {
+        dispatch(setConnectionStatus('online'))
+      })
+
       chatApi.onDisconnect(() => {
         chatApi.stopTyping()
         dispatch(setConnectionStatus('offline'))

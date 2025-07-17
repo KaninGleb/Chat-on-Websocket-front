@@ -30,6 +30,10 @@ export const chatApi = {
     })
   },
 
+  onConnect(onConnectHandler: () => void) {
+    this.socket?.on(EVENTS.CONNECT, onConnectHandler)
+  },
+
   sendTimeZone(timeZone: string) {
     this.socket?.emit(EVENTS.CLIENT_TIMEZONE_SENT, timeZone)
   },
@@ -56,10 +60,8 @@ export const chatApi = {
     this.socket?.off(EVENTS.USER_TYPING)
     this.socket?.off(EVENTS.USER_STOP_TYPING)
     this.socket?.off(EVENTS.USERS_COUNT_UPDATING)
-  },
-
-  onDisconnect(disconnectHandler: () => void) {
-    this.socket?.on(EVENTS.DISCONNECT, disconnectHandler)
+    this.socket?.off(EVENTS.CONNECT)
+    this.socket?.off(EVENTS.DISCONNECT)
   },
 
   destroyConnection() {
@@ -67,6 +69,10 @@ export const chatApi = {
     this.unsubscribe()
     this.socket?.disconnect()
     this.socket = null
+  },
+
+  onDisconnect(disconnectHandler: () => void) {
+    this.socket?.on(EVENTS.DISCONNECT, disconnectHandler)
   },
 
   sendName(name: string) {
