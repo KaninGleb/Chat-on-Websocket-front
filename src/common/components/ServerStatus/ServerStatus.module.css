@@ -40,4 +40,15 @@
     margin-bottom: 2px;
     font-size: 0.875rem;
     color: #aaa;
+    text-wrap: nowrap;
+}
+
+@media (max-width: 500px) {
+    .container {
+        flex-direction: row-reverse;
+    }
+
+    .usersCount {
+        margin-bottom: 0;
+    }
 }
