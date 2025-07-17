@@ -8,12 +8,6 @@
     padding-top: 10px;
 }
 
-.messagesWrapper{
-    max-width: var(--max-area-width);
-    width: 100%;
-    margin: 0 auto;
-}
-
 .messagesContainer::-webkit-scrollbar {
     width: 6px;
 }
@@ -31,4 +25,18 @@
 
 .messagesContainer::-webkit-scrollbar-thumb:hover {
     background-color: #565656;
+}
+
+.messagesWrapper {
+    max-width: var(--max-area-width);
+    width: 100%;
+    margin: 0 auto;
+}
+
+@media (max-width: 1090px) {
+    .messagesWrapper {
+        max-width: unset;
+        width: unset;
+        margin: 0 8px;
+    }
 }

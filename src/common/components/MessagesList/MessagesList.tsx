@@ -4,13 +4,14 @@ import {
   type Dispatch,
   type SetStateAction,
   memo,
-  useEffect, useRef
+  useEffect,
+  useRef
 } from 'react'
 import { MessageItem } from './MessageItem/MessageItem.tsx'
 import { TypingUsersShowcase } from '../TypingUsersShowcase/TypingUsersShowcase.tsx'
-import s from './MessagesList.module.css'
 import { useAppSelector } from '../../hooks'
 import { selectMessages, selectTypingUsers } from '../../../app/chat-slice.ts'
+import s from './MessagesList.module.css'
 
 type MessagesListPropsType = {
   userName: string
