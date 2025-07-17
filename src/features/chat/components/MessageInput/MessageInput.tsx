@@ -1,6 +1,12 @@
 import { type ChangeEvent, type Dispatch, type KeyboardEvent, type SetStateAction, useRef, useState } from 'react'
 import { useAppSelector, useAppDispatch } from '@/common/hooks'
-import { selectConnectionStatus, typeMessage, stopTypingMessage, sendClientMessage } from '@/features/chat/model'
+import {
+  selectConnectionStatus,
+  selectReadyToSendMessagesStatus,
+  typeMessage,
+  stopTypingMessage,
+  sendClientMessage,
+} from '@/features/chat/model'
 import { sendIcon } from '@/assets'
 import s from './MessageInput.module.css'
 
@@ -11,7 +17,8 @@ type MessageInputProps = {
 
 export const MessageInput = ({ setIsAutoScrollActive, isScrolling }: MessageInputProps) => {
   const connectionStatus = useAppSelector(selectConnectionStatus)
-  const isConnected = connectionStatus === 'online'
+  const readyToSendMessagesStatus = useAppSelector(selectReadyToSendMessagesStatus)
+  const isConnected = connectionStatus === 'online' && readyToSendMessagesStatus
 
   const [message, setMessage] = useState('')
   const dispatch = useAppDispatch()
@@ -94,11 +101,7 @@ export const MessageInput = ({ setIsAutoScrollActive, isScrolling }: MessageInpu
               </g>
             </svg>
           </div>
-          <button
-            className={s.sendButton}
-            onClick={handleSendClick}
-            disabled={!isConnected}
-          >
+          <button className={s.sendButton} onClick={handleSendClick} disabled={!isConnected}>
             <img className={s.sendButtonIcon} src={sendIcon} alt='Send icon' />
           </button>
         </div>
