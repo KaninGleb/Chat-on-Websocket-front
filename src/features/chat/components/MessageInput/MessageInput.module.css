@@ -153,6 +153,7 @@
     .inputMessage {
         padding: 14px 10px;
         min-height: unset;
+        font-size: 14px;
     }
 
     .sendButton {
