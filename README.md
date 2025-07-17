@@ -1,6 +1,6 @@
 # 🧩 WebSocket Frontend Chat App
 
-This is the **frontend** part of a mini real-time chat application built with **React** and `socket.io`. It connects to a backend server via WebSocket and allows users to exchange messages, see who is typing, and track the number of active users in real time.
+This is the **frontend** part of a mini real-time chat application built with **React** and **`Socket.IO`**. It connects to a backend server via WebSocket and allows users to exchange messages, see who is typing, and track the number of active users in real time.
 
 👉 The **backend** part is hosted separately and handles all WebSocket communication: [Chat-via-Websocket-back](https://github.com/KaninGleb/Chat-via-Websocket-back)
 
