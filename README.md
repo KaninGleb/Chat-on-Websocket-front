@@ -55,7 +55,7 @@ pnpm run preview
 │   ├── types/        # Global TypeScript types and interfaces
 │   └── utils/        # Utility functions and helpers
 ├── features/
-│   └── chat/         # Chat feature module (logic, UI, API)
+│   └── chat/              # Chat feature module (logic, UI, API)
 │       ├── api/           # WebSocket API setup and integration
 │       ├── components/    # Presentational and container components
 │       └── model/         # Chat-related Redux slices and reducers
