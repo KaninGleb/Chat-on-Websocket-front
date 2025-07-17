@@ -12,13 +12,19 @@ function App() {
 
   return (
     <div className={s.appContainer}>
-      <Header userName={chatUserName} setChatUserName={setChatUserName} />
+      <Header
+        userName={chatUserName}
+        setChatUserName={setChatUserName}
+      />
       <MessagesList
         userName={chatUserName}
         isAutoScrollActive={isAutoScrollActive}
         setIsAutoScrollActive={setIsAutoScrollActive}
       />
-      <MessageInput isScrolling={isAutoScrollActive} setIsAutoScrollActive={setIsAutoScrollActive} />
+      <MessageInput
+        isScrolling={isAutoScrollActive}
+        setIsAutoScrollActive={setIsAutoScrollActive}
+      />
     </div>
   )
 }
