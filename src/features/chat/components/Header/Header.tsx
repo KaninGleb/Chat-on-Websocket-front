@@ -65,7 +65,7 @@ export const Header = ({ userName, setChatUserName }: HeaderType) => {
                   maxLength={15}
                   autoFocus
                 />
-                <div className={`${s.lengthMsg} ${name.length >= 15 && s.errorMsg}`}>{name.length}/15</div>
+                <div className={`${s.lengthMsg} ${name.length >= 15 ? s.errorMsg : ''}`}>{name.length}/15</div>
                 {error && <div className={s.errorText}>{error}</div>}
               </div>
             ) : (

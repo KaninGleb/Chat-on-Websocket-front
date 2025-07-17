@@ -57,8 +57,9 @@
 }
 
 .inputWrapper {
+    position: relative;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 8px;
 }
 
@@ -97,6 +98,7 @@
 .lengthMsg {
     font-size: 0.75rem;
     color: #999;
+    white-space: nowrap;
 }
 
 .lengthMsg.errorMsg {
