@@ -70,6 +70,6 @@ pnpm run preview
 * `users-count-updated` — number of connected users
 * `connect`, `disconnect` — connection status events
 
-## 📄 License
+## ⚖️ License
 
 MIT — free to use, modify, and distribute.
